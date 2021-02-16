@@ -1,0 +1,9 @@
+body{
+    margin: 0 5%;
+    padding: 5%;
+}
+
+#presentation_ecole{
+    display: flex;
+    flex-direction: row;;
+}

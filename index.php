@@ -1,17 +1,18 @@
 <?php
 
-include_once("./public/header.php");
+include_once("static/html_header.php");
 //include_once("./Controller/MainController.php");
 
-require_once("./Controller/MainController.php");
-
+require_once("Controller/MainController.php");
+// Instantiate the super controller
 $main_controller = new MainController();
 
+// Invoke sub controllers
+$main_controller->HeaderController();
+$main_controller->CarousselController();
+$main_controller->PrincipalMenuController();
+$main_controller->AdminController();
+$main_controller->FooterMenuController();
 
-$main_controller->display_header();
-$main_controller->display_caroussel();
-$main_controller->display_menu();
-$main_controller->display_menu_with_no_style();
 
-
-include_once("./public/footer.php");
+include_once("static/html_footer.php");
