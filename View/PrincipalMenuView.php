@@ -8,7 +8,8 @@ class PrincipalMenuView
         ?>
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="">Acceuil</a>
-            <a class="flex-sm-fill text-sm-center nav-link" href="presentation_ecole.php">Presentation Ecole</a>
+            <a id="presentation_ecole" class="flex-sm-fill text-sm-center nav-link" href="presentation_ecole.php">Presentation Ecole</a>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Cycle Enseignement</a>
                 <ul class="dropdown-menu">

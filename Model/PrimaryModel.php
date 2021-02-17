@@ -1,7 +1,7 @@
 <?php
 
 
-class AdminLoginModel
+class PrimaryModel
 {
     private function connexionToDB()
     {
@@ -13,22 +13,18 @@ class AdminLoginModel
         }
     }
 
-    private function fetchAdminData($con)
-    {
-        return $con->query("SELECT * FROM admin WHERE id_admin=0")->fetch();
-    }
-
     private function deconnexionFromDB($con)
     {
         $con = null;
         return 1;
     }
 
-    public function admin_login()
+    public function fetchPrimaryArticles()
     {
+        $par = "P";
         $con = $this->connexionToDB();
-        $res = $this->fetchAdminData($con);
-        $r = $this->deconnexionFromDB($con);
+        $res = $con->query("SELECT * FROM  article WHERE cycle ='P'");
+        $this->deconnexionFromDB($con);
         return $res;
     }
 }

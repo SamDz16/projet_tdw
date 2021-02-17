@@ -12,6 +12,8 @@
     <!-- In order to use Font awesome in the project: for generating icons -->
     <script src="https://kit.fontawesome.com/a2e60d4580.js" crossorigin="anonymous"></script>
 
+    <!--    JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <!-- My own style css file -->
     <link rel="stylesheet" href="styles.css">
     <title>PROJET TDW</title>

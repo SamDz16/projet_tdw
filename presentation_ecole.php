@@ -1,6 +1,4 @@
 <?php
-
-
 //include_once("static/html_header.php");
 include_once("./static/html_header.php");
 //include_once("./Controller/MainController.php");
@@ -27,6 +25,12 @@ $main_controller->HeaderController();
         </p>
     </div>
 </div>
+
+ <?php
+    require_once ("Controller/MainController.php");
+    MainController::PagePresentationController();
+
+ ?>
 
 <?php
 $main_controller->FooterMenuController();

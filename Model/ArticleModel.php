@@ -1,7 +1,7 @@
 <?php
 
 
-class AdminLoginModel
+class ArticleModel
 {
     private function connexionToDB()
     {
@@ -13,22 +13,17 @@ class AdminLoginModel
         }
     }
 
-    private function fetchAdminData($con)
-    {
-        return $con->query("SELECT * FROM admin WHERE id_admin=0")->fetch();
-    }
-
     private function deconnexionFromDB($con)
     {
         $con = null;
         return 1;
     }
 
-    public function admin_login()
+    public function fetchArticles()
     {
         $con = $this->connexionToDB();
-        $res = $this->fetchAdminData($con);
-        $r = $this->deconnexionFromDB($con);
+        $res = $con->query("SELECT * FROM article ORDER BY data_ajout_article DESC LIMIT 8");
+        $this->deconnexionFromDB($con);
         return $res;
     }
 }
