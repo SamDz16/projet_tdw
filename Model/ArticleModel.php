@@ -22,8 +22,25 @@ class ArticleModel
     public function fetchArticles()
     {
         $con = $this->connexionToDB();
-        $res = $con->query("SELECT * FROM article ORDER BY data_ajout_article DESC LIMIT 8");
+        $res = $con->query("SELECT * FROM article WHERE cycle <> 'E' ORDER BY data_ajout_article DESC LIMIT 8");
         $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function fetchArticle($id_article)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM article WHERE id_article= '$id_article'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+    public function fetchCycleArticles($c)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM  article WHERE cycle ='$c'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
 }

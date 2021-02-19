@@ -1,7 +1,7 @@
 <?php
 
 
-class PrimaryModel
+class StudentModel
 {
     private function connexionToDB()
     {
@@ -19,11 +19,10 @@ class PrimaryModel
         return 1;
     }
 
-    public function fetchPrimaryArticles()
+    public function fetchStudent($student_username ,$student_password)
     {
-        $par = "P";
         $con = $this->connexionToDB();
-        $res = $con->query("SELECT * FROM  article WHERE cycle ='P'");
+        $res = $con->query("SELECT * FROM student WHERE student_username='$student_username' AND student_password='$student_password'");
         $this->deconnexionFromDB($con);
         return $res;
     }

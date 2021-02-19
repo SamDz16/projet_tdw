@@ -139,13 +139,71 @@ class MainController
 
     public function PrimaryMainContentController()
     {
-        require_once ("Model/PrimaryModel.php");
-        $primary_model = new PrimaryModel();
+        require_once ("Model/ArticleModel.php");
+        $primary_model = new ArticleModel();
 
-        $primary_articles = $primary_model->fetchPrimaryArticles();
+        $primary_articles = $primary_model->fetchCycleArticles("P");
 
-        require_once ("View/PrimaryMainContentView.php");
-        $primary_main_content_view = new PrimaryMainContentView();
-        $primary_main_content_view->display_primary_main_content($primary_articles);
+        require_once ("View/ArticlesMainContentView.php");
+        $primary_main_content_view = new ArticlesMainContentView();
+        $primary_main_content_view->display_articles_main_content($primary_articles);
+    }
+
+    public function ArticlePageController($id_article)
+    {
+        require_once ("Model/ArticleModel.php");
+        $article_model = new ArticleModel();
+        $article = $article_model->fetchArticle($id_article)->fetch();
+
+        require_once ("View/ArticleView.php");
+        $article_view = new ArticleView();
+        $article_view->display_article($article);
+    }
+
+    public function MoyenMainContentController()
+    {
+        require_once ("Model/ArticleModel.php");
+        $moyen_model = new ArticleModel();
+
+        $moyen_articles = $moyen_model->fetchCycleArticles("M");
+
+        require_once ("View/ArticlesMainContentView.php");
+        $moyen_main_content_view = new ArticlesMainContentView();
+        $moyen_main_content_view->display_articles_main_content($moyen_articles);
+    }
+
+    public function SecondaryMainContentController()
+    {
+        require_once ("Model/ArticleModel.php");
+        $secondary_model = new ArticleModel();
+
+        $secondary_articles = $secondary_model->fetchCycleArticles("S");
+
+        require_once ("View/ArticlesMainContentView.php");
+        $secondary_main_content_view = new ArticlesMainContentView();
+        $secondary_main_content_view->display_articles_main_content($secondary_articles);
+    }
+
+    public function StudentController()
+    {
+        require_once ("Model/ArticleModel.php");
+        $student_articles = new ArticleModel();
+        $student_articles = $student_articles->fetchCycleArticles("E");
+
+        require_once("View/StudentView.php");
+        $student_view = new StudentView();
+        $student_view->display_student_view($student_articles);
+    }
+
+    public function ParentController()
+    {
+
+    }
+
+    public function StudentLoginController($student_username ,$student_password)
+    {
+        require_once ("Model/StudentModel.php");
+        $student_model = new StudentModel();
+        $student_model->fetchStudent($student_username, $student_password);
     }
 }

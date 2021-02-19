@@ -1,38 +1,36 @@
 <style>
-    #index-main-content{
+    #articles{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 10px;
     }
     @media screen and (max-width: 800px ){
-        #index-main-content {
+        #articles {
             grid-template-columns: repeat(3, 1fr);
         }
     }
     @media screen and (max-width: 640px ){
-        #index-main-content {
+        #articles {
             grid-template-columns: repeat(2, 1fr);
         }
     }
     @media screen and (max-width: 460px ){
-        #index-main-content {
+        #articles {
             grid-template-columns: repeat(1, 1fr);
         }
-    }
 </style>
 
 <?php
 
-class MainContentIndexView
+class ArticlesMainContentView
 {
-    public function display_index_main_content($articles)
+    public function display_articles_main_content($articles)
     {
         ?>
-            <div id="index-main-content" class="card-group">
+            <div style="margin: 20px 0;" id="articles" class="card-group">
                 <?php
                     while($article = $articles->fetch())
                     {
-//                        $categorie = $article["cycle"] == "P" ? "Primaire": $article["cycle"] == "M" ? "Moyen" : "Secondaire";
                         if($article["cycle"] == "P"){
                             $categorie = "Primaire";
                         } else if($article["cycle"] == "M"){

@@ -29,6 +29,11 @@ $main_controller->HeaderController();
 </div>
 
 <?php
+require_once("Controller/MainController.php");
+$main_controller->MoyenMainContentController();
+?>
+
+<?php
 $main_controller->FooterMenuController();
 ?>
 

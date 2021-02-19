@@ -39,10 +39,6 @@ class AdminView
                             <label for="exampleFormControlTextarea5">Présentation de l'école:</label>
                             <textarea name="presentation_ecole" class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>
                         </div>
-<!--                        <div style="margin: 20px 0;" class="mb-3">-->
-<!--                            <label for="formFileMultiple" class="form-label">Choisir une ou plusieurs images:</label>-->
-<!--                            <input name="image" class="form-control" type="file" id="formFileMultiple" multiple>-->
-<!--                        </div>-->
                         <div style="margin: 20px 0;" class="form-group green-border-focus">
                             <label for="imageSelect">Veuillez choisir une image a uploader:</label>
                             <select id="imageSelect" name="image" class="form-control">
