@@ -8,9 +8,9 @@ include_once("static/html_header.php");
     if(isset($_GET["userIs"])){
         require_once ("Controller/MainController.php");
         $main_controller = new MainController();
-        if($_GET["userIs"] = "eleve"){
+        if($_GET["userIs"] === "eleve"){
             $main_controller->StudentController();
-        } elseif($_GET["userIs"] = "parent"){
+        } elseif($_GET["userIs"] === "parent"){
             $main_controller->ParentController();
         }else {
             echo "Access denied!";

@@ -47,6 +47,7 @@ class StudentDetailsView
                 </div>
             </div>
             <a style="color: #fff; margin: 0 0 20px 0;" href="index.php" class="btn btn-secondary">Revenir vers la page d'accueil</a>
+            <a style="color: #fff; margin: 0 0 20px 0;" href="deconnexion.php?userIs=eleve" class="btn btn-danger">Déconnexion</a>
 <!--            <a style="color: #fff; margin: 0 0 20px 0;" href="index.php" class="btn btn-secondary">Deconnexion</a>-->
         </div>
         <?php

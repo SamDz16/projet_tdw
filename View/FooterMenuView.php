@@ -25,8 +25,8 @@ class FooterMenuView
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Espace</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Parent</a></li>
-                            <li><a class="dropdown-item" href="#">Eleves</a></li>
+                            <li><a class="dropdown-item" href="studentLoginMaster.php">Eleves</a></li>
+                            <li><a class="dropdown-item" href="parentLoginMaster.php">Parent</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

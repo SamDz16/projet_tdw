@@ -14,6 +14,7 @@ $main_controller->CarousselController();
 $main_controller->PrincipalMenuController();
 $main_controller->AdminController();
 $main_controller->MainContentController();
+$main_controller->PaginationController();
 $main_controller->FooterMenuController();
 
 include_once("static/html_footer.php");

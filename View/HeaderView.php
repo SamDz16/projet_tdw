@@ -1,3 +1,9 @@
+<style>
+    nav{
+        margin-bottom: 20px;
+    }
+</style>
+
 <?php
 
 
@@ -10,8 +16,8 @@ class HeaderView
         <!-- Image and text -->
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">
-                    <img style="position: relative; top: 3px;" src="static/logo.png" alt="" width="30" height="24" class="d-inline-block align-top">
+                <a class="navbar-brand" href="index.php">
+                    <img style="position: relative; top: 3px;" src="static/logo.png" alt="logo image" width="30" height="24" class="d-inline-block align-top">
                     DZ School
                 </a>
                 <div class="d-flex">

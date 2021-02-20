@@ -8,12 +8,13 @@
     require_once("Controller/MainController.php");
     if (isset($_POST["admin_username"]) || isset($_SESSION["admin_username"])) {
         MainController::AdminLoginController();
+    } else {
+        echo "Admin is not authenticated!";
     }
+
+
     if (isset($_POST["presentation_ecole"]) || isset($_POST["image"])) {
         MainController::upload_presentation();
-    }
-    else {
-        echo "Admin is not authenticated!";
     }
 ?>
 

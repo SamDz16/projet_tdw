@@ -1,4 +1,8 @@
 <?php
+include_once("./static/html_header.php");
+?>
+
+<?php
 
 if(isset($_GET["id_article"])){
     require_once ("Controller/MainController.php");
@@ -11,3 +15,9 @@ if(isset($_GET["edts"])){
     $main_controller = new MainController();
     $main_controller->EDTsPageController($_GET["edts"]);
 }
+?>
+
+<?php
+include_once("static/html_footer.php");
+?>
+

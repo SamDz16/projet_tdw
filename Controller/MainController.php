@@ -49,6 +49,10 @@ class MainController
 
     public static function AdminLoginController()
     {
+        require_once ("MainController.php");
+        $main_controller = new self();
+        $main_controller->HeaderController();
+
         require_once("Model/AdminLoginModel.php");
         $admin_login = new AdminLoginModel();
 
@@ -71,7 +75,10 @@ class MainController
                     } else echo "Wrong username or password!";
                 }
             } else echo "You must enter username and password to access this page!";
-        } else $admin_view->display_admin_view();
+        } else {
+            $admin_view->display_admin_view();
+        }
+        $main_controller->FooterMenuController();
     }
 
     public static function upload_presentation()
@@ -137,6 +144,9 @@ class MainController
 
     public function PrimaryMainContentController()
     {
+        require_once("Controller/MainController.php");
+        $main_controller = new self();
+
         require_once ("Model/EDTModel.php");
         $edtmodel = new EDTModel();
 
@@ -149,25 +159,29 @@ class MainController
         $edts = $edtmodel->fetchEDTs("Primaire");
         $enseignants = $ens_model->fetchEnseignants();
 
-//        while($ens = $enseignants->fetch()){
-//            echo "<pre>";
-//                echo $ens["nom_enseignant"];
-//            echo "</pre>";
-//        }
-
         $primary_articles = $primary_model->fetchCycleArticles("P");
+
+        $main_controller->HeaderController();
 
         require_once ("View/CycleArticlesView.php");
         $cycle_articles_view = new CycleArticlesView();
+        $cycle_articles_view->display_static_primaire();
         $cycle_articles_view->display4articles("Primaire", $edts, $enseignants);
 
         require_once ("View/ArticlesMainContentView.php");
         $primary_main_content_view = new ArticlesMainContentView();
         $primary_main_content_view->display_articles_main_content($primary_articles);
+
+        $main_controller->FooterMenuController();
     }
 
     public function ArticlePageController($id_article)
     {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
         require_once ("Model/ArticleModel.php");
         $article_model = new ArticleModel();
         $article = $article_model->fetchArticle($id_article)->fetch();
@@ -175,34 +189,83 @@ class MainController
         require_once ("View/ArticleView.php");
         $article_view = new ArticleView();
         $article_view->display_article($article);
+
+        $main_controller->FooterMenuController();
     }
 
     public function MoyenMainContentController()
     {
+        require_once("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("Model/EDTModel.php");
+        $edtmodel = new EDTModel();
+
         require_once ("Model/ArticleModel.php");
         $moyen_model = new ArticleModel();
 
+        require_once ("Model/EnseignantModel.php");
+        $ens_model = new EnseignantModel();
+
+        $edts = $edtmodel->fetchEDTs("Moyen");
+        $enseignants = $ens_model->fetchEnseignants();
+
         $moyen_articles = $moyen_model->fetchCycleArticles("M");
+
+        $main_controller->HeaderController();
+
+        require_once ("View/CycleArticlesView.php");
+        $cycle_articles_view = new CycleArticlesView();
+        $cycle_articles_view->display_static_moyen();
+        $cycle_articles_view->display4articles("Moyen", $edts, $enseignants);
 
         require_once ("View/ArticlesMainContentView.php");
         $moyen_main_content_view = new ArticlesMainContentView();
         $moyen_main_content_view->display_articles_main_content($moyen_articles);
+
+        $main_controller->FooterMenuController();
     }
 
     public function SecondaryMainContentController()
     {
+        require_once("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("Model/EDTModel.php");
+        $edtmodel = new EDTModel();
+
         require_once ("Model/ArticleModel.php");
         $secondary_model = new ArticleModel();
 
+        require_once ("Model/EnseignantModel.php");
+        $ens_model = new EnseignantModel();
+
+        $edts = $edtmodel->fetchEDTs("Moyen");
+        $enseignants = $ens_model->fetchEnseignants();
+
         $secondary_articles = $secondary_model->fetchCycleArticles("S");
+
+        $main_controller->HeaderController();
+
+        require_once ("View/CycleArticlesView.php");
+        $cycle_articles_view = new CycleArticlesView();
+        $cycle_articles_view->display_static_secondaire();
+        $cycle_articles_view->display4articles("Secondary", $edts, $enseignants);
 
         require_once ("View/ArticlesMainContentView.php");
         $secondary_main_content_view = new ArticlesMainContentView();
         $secondary_main_content_view->display_articles_main_content($secondary_articles);
+
+        $main_controller->FooterMenuController();
     }
 
     public function StudentController()
     {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
         require_once ("Model/ArticleModel.php");
         $student_articles = new ArticleModel();
         $student_articles = $student_articles->fetchCycleArticles("E");
@@ -215,15 +278,40 @@ class MainController
 
         $student_login_view->display_student_login_view();
         $student_view->display_student_articles_view($student_articles);
+
+        $main_controller->FooterMenuController();
     }
 
     public function ParentController()
     {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
+        require_once ("Model/ArticleModel.php");
+        $parent_articles = new ArticleModel();
+        $parent_articles = $parent_articles->fetchCycleArticles("Pa");
+
+        require_once("View/ArticleView.php");
+        $parent_articles_view = new ArticleView();
+
+        require_once ("View/ParentView.php");
+        $parent_view = new ParentView();
+        $parent_view->display_parent_login_view();
+
+        $parent_articles_view->display_parent_articles_view($parent_articles);
+
+        $main_controller->FooterMenuController();
 
     }
 
     public static function StudentLoginController()
     {
+        require_once ("View/HeaderView.php");
+        $main_controller = new self();
+        $main_controller->HeaderController();
+
         require_once ("View/StudentLoginView.php");
 
         require_once ("View/StudentArticlesView.php");
@@ -231,8 +319,6 @@ class MainController
 
         require_once ("View/StudentDetailsView.php");
         $student_details_view = new StudentDetailsView();
-        $student_activities_view = new StudentDetailsView();
-
 
         require_once ("Model/ArticleModel.php");
         $student_articles = new ArticleModel();
@@ -263,7 +349,6 @@ class MainController
                 echo "Cet étudiant n'existe pas dans cette école";
             }
         }else {
-
             $student_details = $student_model->fetchStudentDetails($_SESSION["student_firstname"], $_SESSION["student_lastname"])->fetch();
             $student_activities = $student_model->fetchStudentActivities($_SESSION["student_firstname"], $_SESSION["student_lastname"]);
             $student_articles = $student_articles->fetchCycleArticles("E");
@@ -271,6 +356,59 @@ class MainController
             $student_details_view->display_student_details($student_details, $student_activities);
             $student_articles_view->display_student_articles_view($student_articles);
         }
+        $main_controller->FooterMenuController();
+    }
+
+    public static function parentLoginController()
+    {
+        require_once ("View/HeaderView.php");
+        $main_controller = new self();
+        $main_controller->HeaderController();
+
+        require_once ("View/ArticleView.php");
+        $parent_articles_view = new ArticleView();
+
+
+        require_once ("Model/ParentModel.php");
+        $parent_model = new ParentModel();
+
+        require_once ("View/ParentView.php");
+        $parent_view = new ParentView();
+
+        if(!isset($_SESSION["parent_firstname"])){
+
+            $parent_lastname = $_POST["parent_lastname"];
+            $parent_firstname = $_POST["parent_firstname"];
+
+            $parent = $parent_model->fetchParent($parent_firstname, $parent_lastname)->fetch();
+
+            if($parent){
+                // Means parent exists in database
+                $_SESSION["parent_firstname"] = $parent["prenom_parent"];
+                $_SESSION["parent_lastname"] = $parent["nom_parent"];
+                $_SESSION["parent_id"] = $parent["id_parent"];
+
+                $parent_sons = $parent_model->fetchParentSons($parent["id_parent"]);
+                $parent_sons_notes = $parent_model->fetchNotes($parent["id_parent"]);
+                $parent_sons_remarques_ens = $parent_model->fetchRemarquesEnseignant($parent["id_parent"]);
+                $parent_sons_activities = $parent_model->fetchActivities($parent["id_parent"]);
+
+                $parent_view->display_parent_sons_detail($parent_sons, $parent_sons_notes, $parent_sons_remarques_ens, $parent_sons_activities);
+
+            }
+            else {
+                echo "Ce parent n'a aucun éleve dans cette école";
+            }
+        }else {
+            $parent_sons = $parent_model->fetchParentSons($_SESSION["parent_id"]);
+            $parent_sons_notes = $parent_model->fetchNotes($_SESSION["parent_id"]);
+            $parent_sons_remarques_ens = $parent_model->fetchRemarquesEnseignant($_SESSION["parent_id"]);
+            $parent_sons_activities = $parent_model->fetchActivities($_SESSION["parent_id"]);
+
+            $parent_view->display_parent_sons_detail($parent_sons, $parent_sons_notes, $parent_sons_remarques_ens, $parent_sons_activities);
+
+        }
+        $main_controller->FooterMenuController();
     }
 
     public function EDTsPageController($edts)
@@ -282,8 +420,23 @@ class MainController
         echo "</pre>";
     }
 
-    public function EnseignantController()
+    public function ContactController()
     {
+        require_once ("View/ContactView.php");
+        $contact_view = new ContactView();
+        $contact_view->display_contact_page();
+    }
 
+    public function PaginationController()
+    {
+        require_once ("Model/ArticleModel.php");
+        $article_model = new ArticleModel();
+
+        require_once ("View/PaginationView.php");
+        $pagination_view = new PaginationView();
+
+        $old_articles = $article_model->fetchOldArticles();
+
+        $pagination_view->display_pagination($old_articles);
     }
 }

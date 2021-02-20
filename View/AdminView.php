@@ -52,6 +52,7 @@ class AdminView
                         <button type="submit" class="btn btn-success">Enregistrer</button>
                     </form>
                 </div>
+                <a style="color: #fff; margin: 20px 0 20px 0;" href="deconnexion.php?userIs=admin" class="btn btn-danger">Déconnexion</a>
             </div>
         <?php
     }
