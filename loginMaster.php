@@ -13,7 +13,7 @@
     }
 
 
-    if (isset($_POST["presentation_ecole"]) || isset($_POST["image"])) {
+    if (isset($_POST["titre_presentation_ecole"]) || isset($_POST["image"])) {
         MainController::upload_presentation();
     }
 ?>

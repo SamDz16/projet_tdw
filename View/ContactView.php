@@ -8,7 +8,7 @@ class ContactView
         ?>
         <div id="presentation_ecole">
             <div>
-                <img src="static/cotact.jpg" style="width: 400px; margin-top: 20px;" alt="School Logo">
+                <img src="static/cotact.jpg" style="width: 400px; margin-top: 20px; border-radius: 10px;" alt="School Logo">
             </div>
             <div style="margin-left: 20px;">
                 <h1>Contactez nous!</h1>

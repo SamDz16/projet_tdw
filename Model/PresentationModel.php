@@ -13,10 +13,10 @@ class PresentationModel
         }
     }
 
-    private function push_presentation_data($con, $presentation_text, $presentation_image)
+    private function push_presentation_data($con, $titre_presentation_text, $text_presentation, $presentation_image)
     {
-        $stmt = $con->prepare("INSERT INTO presentation VALUES (:text, :image)");
-        $stmt->execute([':text' => $presentation_text, ':image' => $presentation_image]);
+        $stmt = $con->prepare("INSERT INTO presentation (titre_presentation,text_presentation,image_presentation) VALUES (:titre, :text, :image)");
+        $stmt->execute([':titre' => $titre_presentation_text, ':text' => $text_presentation, ':image' => $presentation_image]);
     }
 
     private function deconnexionFromDB($con)
@@ -25,18 +25,18 @@ class PresentationModel
         return 1;
     }
 
-    public function upload_presentation($presentation_text, $presentation_image)
+    public function upload_presentation($titre_presentation, $text_presentation, $presentation_image)
     {
         $con = $this->connexionToDB();
-        $this->push_presentation_data($con, $presentation_text, $presentation_image);
-        $r = $this->deconnexionFromDB($con);
+        $this->push_presentation_data($con, $titre_presentation, $text_presentation, $presentation_image);
+        $this->deconnexionFromDB($con);
     }
 
     public function fetchPresentationData()
     {
         $con = $this->connexionToDB();
         $res = $con->query("SELECT * FROM presentation");
-        $r = $this->deconnexionFromDB($con);
+        $this->deconnexionFromDB($con);
         return $res;
     }
 }

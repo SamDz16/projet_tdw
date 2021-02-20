@@ -26,6 +26,13 @@ class MainController
         $admin_view->display_admin_login();
     }
 
+//    public function AdminController()
+//    {
+//        require_once("View/AdminView.php");
+//        $admin_view = new AdminView();
+//        $admin_view->display_admin_login();
+//    }
+
     public function CarousselController()
     {
         require_once("View/CarousselView.php");
@@ -64,7 +71,7 @@ class MainController
                 $admin = $_POST["admin_username"];
                 $passwd = $_POST["admin_password"];
 
-//                Invoquer le model pour recuperation des donnees
+               // Invoquer le model pour recuperation des donnees
                 $res = $admin_login->admin_login();
                 if($res){
                     if($admin == $res["username_admin"] && $passwd == $res["password_admin"]){
@@ -86,20 +93,19 @@ class MainController
         require_once ("Model/PresentationModel.php");
         $upload_presentation = new PresentationModel();
 
-        if(isset($_SESSION["admin_username"])){ // Must be authenticated!
-            if (isset($_POST["presentation_ecole"])){
-//                if(!empty($_FILES["image"]["name"])){
-                    $presentation_text = $_POST["presentation_ecole"];
+        if(isset($_SESSION["admin_username"])){
+            // Must be authenticated!
+            if (isset($_POST["titre_presentation_ecole"])){
+
+                $titre_presentation_text = $_POST["titre_presentation_ecole"];
+                if(isset($_POST["text_presentation_ecole"])){
+                    $text_presentation_text = $_POST["text_presentation_ecole"];
+                }
+                if(isset($_POST["image"])){
                     $presentation_image = $_POST["image"];
+                }
 
-//                    $fileName = basename($_FILES["image"]["name"]);
-//                    $image = $_FILES['image']['tmp_name'];
-//                    $imgContent = addslashes(file_get_contents($image));
-
-//                    echo print_r($_FILES);
-
-                    $upload_presentation->upload_presentation($presentation_text, $presentation_image);
-//                }
+                $upload_presentation->upload_presentation($titre_presentation_text, $text_presentation_text, $presentation_image);
             } else {
                 echo "Nothing is submitted!";
             }
@@ -110,24 +116,24 @@ class MainController
 
     public static function PagePresentationController()
     {
+        require_once("Controller/MainController.php");
+        $main_controller = new self();
+
         require_once ("Model/PresentationModel.php");
         $presentaion = new PresentationModel();
 
-        $res = $presentaion->fetchPresentationData();
 
-        ?>
-        <div id="images">
-            <?php
-            while($pres = $res->fetch()){
+        $main_controller->HeaderController();
 
-                echo "<img class='img' src=static/img/".$pres["presentation_image"]." alt='Une image'>";
-               ?>
-                <h4><?= $pres["presentation_text"] ?></h4>
-            <?php
-                }
-            ?>
-        </div>
-        <?php
+        $presentation_articles = $presentaion->fetchPresentationData();
+
+        require_once ("View/PresentationEcoleView.php");
+        $presentaion_ecole_view = new PresentationEcoleView();
+
+        $presentaion_ecole_view->display_static_presentation_ecole();
+        $presentaion_ecole_view->display_presentation_ecole_articles($presentation_articles);
+
+        $main_controller->FooterMenuController();
     }
 
     public function MainContentController()

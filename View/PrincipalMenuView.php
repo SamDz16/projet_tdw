@@ -5,7 +5,7 @@ class PrincipalMenuView
     public function display_principal_menu()
     {
         ?>
-        <nav class="nav nav-pills flex-column flex-sm-row">
+        <nav style="margin: 20px 0;" class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="">Acceuil</a>
             <a style="display: inline-block; margin-left: 5px;" id="presentation_ecole" class="flex-sm-fill text-sm-center nav-link" href="presentation_ecole.php">Presentation Ecole</a>
 

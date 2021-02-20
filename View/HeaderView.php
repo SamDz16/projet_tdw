@@ -21,11 +21,17 @@ class HeaderView
                     DZ School
                 </a>
                 <div class="d-flex">
-                    <a href="">
-                        <i style="color: #1DA1F2; margin: 0 5px" class="fab fa-twitter fa-2x"></i>
+                    <a id="facebook" href="#">
+                        <i style="color: #4267B2; margin: 0 10px;" class="fab fa-facebook-f fa-2x"></i>
                     </a>
-                    <a href="">
-                        <i style="color: #4267B2; margin: 0 5px;" class="fab fa-facebook-f fa-2x"></i>
+                    <a id="twitter" href="#">
+                        <i style="color: #1DA1F2; margin: 0 10px" class="fab fa-twitter fa-2x"></i>
+                    </a>
+                    <a id="youtube" href="#">
+                        <i style="color: #FF0000; margin: 0 10px" class="fab fa-youtube fa-2x"></i>
+                    </a>
+                    <a id="instagram" href="#">
+                        <i style="color: #C13584; margin: 0 10px" class="fab fa-instagram fa-2x"></i>
                     </a>
                 </div>
             </div>
