@@ -13,7 +13,7 @@
         MainController::upload_presentation();
     }
     else {
-        echo "You are in LoginMaster.php page";
+        echo "Admin is not authenticated!";
     }
 ?>
 

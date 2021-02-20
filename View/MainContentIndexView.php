@@ -33,9 +33,9 @@ class MainContentIndexView
                     while($article = $articles->fetch())
                     {
 //                        $categorie = $article["cycle"] == "P" ? "Primaire": $article["cycle"] == "M" ? "Moyen" : "Secondaire";
-                        if($article["cycle"] == "P"){
+                        if($article["cycle"] === "P"){
                             $categorie = "Primaire";
-                        } else if($article["cycle"] == "M"){
+                        } else if($article["cycle"] === "M"){
                             $categorie = "Moyen";
                         } else {
                             $categorie = "Secondaire";
@@ -45,7 +45,7 @@ class MainContentIndexView
                                 <img src=<?="static/img/".$article["image_article"]?> class="card-img-top" alt=<?=$article["tittre_article"]?>>
                                 <div class="card-body">
                                     <h5 class="card-title"><?=$article["tittre_article"]?></h5>
-                                    <p class="card-text"><?=substr($article["description_article"], 0, 120)."..."?></p>
+                                    <p class="card-text"><?=substr($article["description_article"], 0, 125)."..."?></p>
                                     <p style="margin-bottom: 0;" class="card-text"><small class="text-muted"><?=$article["data_ajout_article"]?></small></p>
                                     <p class="card-text"><small class="text-muted">Catégorie Article: <?=$categorie?></small></p>
                                     <a style="color: #fff;" href="routerArticle.php?id_article=<?=$article['id_article']?>" class="btn btn-dark">Afficher la suite</a>

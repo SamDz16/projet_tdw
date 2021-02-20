@@ -55,8 +55,6 @@ class MainController
         require_once("View/AdminView.php");
         $admin_view = new AdminView();
 
-//        session_start();
-
         if(!isset($_SESSION["admin_username"])){
             if(isset($_POST["admin_username"]) && isset($_POST["admin_password"])){
                 $admin = $_POST["admin_username"];
@@ -139,10 +137,29 @@ class MainController
 
     public function PrimaryMainContentController()
     {
+        require_once ("Model/EDTModel.php");
+        $edtmodel = new EDTModel();
+
         require_once ("Model/ArticleModel.php");
         $primary_model = new ArticleModel();
 
+        require_once ("Model/EnseignantModel.php");
+        $ens_model = new EnseignantModel();
+
+        $edts = $edtmodel->fetchEDTs("Primaire");
+        $enseignants = $ens_model->fetchEnseignants();
+
+//        while($ens = $enseignants->fetch()){
+//            echo "<pre>";
+//                echo $ens["nom_enseignant"];
+//            echo "</pre>";
+//        }
+
         $primary_articles = $primary_model->fetchCycleArticles("P");
+
+        require_once ("View/CycleArticlesView.php");
+        $cycle_articles_view = new CycleArticlesView();
+        $cycle_articles_view->display4articles("Primaire", $edts, $enseignants);
 
         require_once ("View/ArticlesMainContentView.php");
         $primary_main_content_view = new ArticlesMainContentView();
@@ -190,9 +207,14 @@ class MainController
         $student_articles = new ArticleModel();
         $student_articles = $student_articles->fetchCycleArticles("E");
 
-        require_once("View/StudentView.php");
-        $student_view = new StudentView();
-        $student_view->display_student_view($student_articles);
+        require_once("View/StudentLoginView.php");
+        require_once("View/StudentArticlesView.php");
+
+        $student_login_view = new StudentLoginView();
+        $student_view = new StudentArticlesView();
+
+        $student_login_view->display_student_login_view();
+        $student_view->display_student_articles_view($student_articles);
     }
 
     public function ParentController()
@@ -200,10 +222,68 @@ class MainController
 
     }
 
-    public function StudentLoginController($student_username ,$student_password)
+    public static function StudentLoginController()
     {
+        require_once ("View/StudentLoginView.php");
+
+        require_once ("View/StudentArticlesView.php");
+        $student_articles_view = new StudentArticlesView();
+
+        require_once ("View/StudentDetailsView.php");
+        $student_details_view = new StudentDetailsView();
+        $student_activities_view = new StudentDetailsView();
+
+
+        require_once ("Model/ArticleModel.php");
+        $student_articles = new ArticleModel();
+
         require_once ("Model/StudentModel.php");
         $student_model = new StudentModel();
-        $student_model->fetchStudent($student_username, $student_password);
+
+        if(!isset($_SESSION["student_firstname"])){
+
+            $student_lastname = $_POST["student_lastname"];
+            $student_firstname = $_POST["student_firstname"];
+
+            $student = $student_model->fetchStudent($student_firstname, $student_lastname)->fetch();
+
+            if($student){
+                // Means student exists in database
+                $_SESSION["student_firstname"] = $student["prenom_eleve"];
+                $_SESSION["student_lastname"] = $student["nom_eleve"];
+
+                $student_details = $student_model->fetchStudentDetails($student["prenom_eleve"], $student["nom_eleve"])->fetch();
+                $student_activities = $student_model->fetchStudentActivities($student["prenom_eleve"], $student["nom_eleve"]);
+                $student_articles = $student_articles->fetchCycleArticles("E");
+
+                $student_details_view->display_student_details($student_details, $student_activities);
+                $student_articles_view->display_student_articles_view($student_articles);
+            }
+            else {
+                echo "Cet étudiant n'existe pas dans cette école";
+            }
+        }else {
+
+            $student_details = $student_model->fetchStudentDetails($_SESSION["student_firstname"], $_SESSION["student_lastname"])->fetch();
+            $student_activities = $student_model->fetchStudentActivities($_SESSION["student_firstname"], $_SESSION["student_lastname"]);
+            $student_articles = $student_articles->fetchCycleArticles("E");
+
+            $student_details_view->display_student_details($student_details, $student_activities);
+            $student_articles_view->display_student_articles_view($student_articles);
+        }
+    }
+
+    public function EDTsPageController($edts)
+    {
+        echo "List des emplois du temps";
+
+        echo "<pre>";
+            print_r($edts->fetch());
+        echo "</pre>";
+    }
+
+    public function EnseignantController()
+    {
+
     }
 }

@@ -24,7 +24,7 @@
 
 class ArticlesMainContentView
 {
-    public function display_articles_main_content($articles)
+    public function     display_articles_main_content($articles)
     {
         ?>
             <div style="margin: 20px 0;" id="articles" class="card-group">

@@ -6,6 +6,14 @@ class ArticleView
     {
         include_once ("static/html_header.php");
 
+        if($article["cycle"] === "P"){
+            $categorie = "Primaire";
+        } else if($article["cycle"] === "M"){
+            $categorie = "Moyen";
+        } else {
+            $categorie = "Secondaire";
+        }
+
         $path = "static/img/";
         if ((int)$article["id_article"] >= 12) $path = "static/students/";
         ?>
@@ -15,7 +23,7 @@ class ArticleView
                 <h5 class="card-title"><?=$article["tittre_article"]?></h5>
                 <p class="card-text"><?=$article["description_article"]?></p>
                 <p style="margin-bottom: 0;" class="card-text"><small class="text-muted"><?=$article["data_ajout_article"]?></small></p>
-                <p class="card-text"><small class="text-muted">Cycle: <?=$article["cycle"]?></small></p>
+                <p class="card-text"><small class="text-muted">Catégorie Article: <?=$categorie?></small></p>
                 <a style="color: #fff;" href="index.php" class="btn btn-dark">Revenir vers la page d'accueil</a>
             </div>
         </div>
