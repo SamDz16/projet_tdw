@@ -28,16 +28,32 @@ class ArticleView
     {
         include_once ("static/html_header.php");
 
-        if($article["cycle"] === "P"){
-            $categorie = "Primaire";
-        } else if($article["cycle"] === "M"){
-            $categorie = "Moyen";
-        } else {
-            $categorie = "Secondaire";
+        $path = "static/img/";
+        $categorie = "";
+
+        switch ($article["cycle"]){
+            case "P":
+                $categorie = "Primaire";
+                break;
+            case "M":
+                $categorie = "Moyen";
+                break;
+            case "S":
+                $categorie = "Secondaire";
+                break;
+            case "E":
+                $categorie = "Eleve";
+                $path .= "students/";
+                break;
+            case "Pa":
+                $categorie = "Parent";
+                $path .= "parents/";
+                break;
+            default:
+                $categorie = "Multi Utilisateurs";
+                break;
         }
 
-        $path = "static/img/";
-        if ((int)$article["id_article"] >= 12) $path = "static/students/";
         ?>
         <div id="article-details" class="card">
             <img src=<?=$path.$article["image_article"]?> class="card-img-top" alt=<?=$article["tittre_article"]?>>

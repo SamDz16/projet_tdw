@@ -35,12 +35,30 @@ class ArticlesMainContentView
                 <?php
                     while($article = $articles->fetch())
                     {
-                        if($article["cycle"] == "P"){
-                            $categorie = "Primaire";
-                        } else if($article["cycle"] == "M"){
-                            $categorie = "Moyen";
-                        } else {
-                            $categorie = "Secondaire";
+                        $path = "static/img/";
+                        $categorie = "";
+
+                        switch ($article["cycle"]){
+                            case "P":
+                                $categorie = "Primaire";
+                                break;
+                            case "M":
+                                $categorie = "Moyen";
+                                break;
+                            case "S":
+                                $categorie = "Secondaire";
+                                break;
+                            case "E":
+                                $categorie = "Eleve";
+                                $path = "static/students/";
+                                break;
+                            case "Pa":
+                                $categorie = "Parent";
+                                $path = "static/parents/";
+                                break;
+                            default:
+                                $categorie = "Multi Utilisateurs";
+                                break;
                         }
                         ?>
                             <div class="card">

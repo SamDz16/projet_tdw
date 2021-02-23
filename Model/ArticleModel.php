@@ -27,6 +27,14 @@ class ArticleModel
         return $res;
     }
 
+    public function fetchAllArticles()
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM article");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
     public function fetchOldArticles()
     {
         $con = $this->connexionToDB();
@@ -47,6 +55,29 @@ class ArticleModel
     {
         $con = $this->connexionToDB();
         $res = $con->query("SELECT * FROM  article WHERE cycle ='$c'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+    public function addArticle($titre_article, $image_article, $description_article, $users)
+    {
+        $con = $this->connexionToDB();
+        $stmt = $con->prepare("INSERT INTO article (tittre_article,image_article,description_article,cycle) VALUES (:titre, :image, :description, :users)");
+        $stmt->execute([':titre' => $titre_article, ':image' => $image_article, ':description' => $description_article, ':users' => $users]);
+        $this->deconnexionFromDB($con);
+    }
+
+    public function deleteArticle($id_article){
+        $con = $this->connexionToDB();
+        $con->query("DELETE FROM article WHERE id_article= '$id_article'");
+        $this->deconnexionFromDB($con);
+    }
+
+    public function modifyArticle($id_article, $titre_article, $image_article, $description_article, $users)
+    {
+        echo "ID ARTICLE : " . $id_article;
+        $con = $this->connexionToDB();
+        $res = $con->query("UPDATE article set tittre_article='$titre_article',image_article='$image_article',description_article='$description_article',cycle='$users' WHERE id_article='$id_article';");
         $this->deconnexionFromDB($con);
         return $res;
     }

@@ -1,7 +1,8 @@
+<?php session_start(); ?>
+
 <?php
 
 include_once("static/html_header.php");
-//include_once("./Controller/MainController.php");
 
 require_once("Controller/MainController.php");
 

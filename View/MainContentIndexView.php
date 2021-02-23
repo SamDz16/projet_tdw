@@ -32,13 +32,30 @@ class MainContentIndexView
                 <?php
                     while($article = $articles->fetch())
                     {
-//                        $categorie = $article["cycle"] == "P" ? "Primaire": $article["cycle"] == "M" ? "Moyen" : "Secondaire";
-                        if($article["cycle"] === "P"){
-                            $categorie = "Primaire";
-                        } else if($article["cycle"] === "M"){
-                            $categorie = "Moyen";
-                        } else {
-                            $categorie = "Secondaire";
+                        $path = "static/img/";
+                        $categorie = "";
+
+                        switch ($article["cycle"]){
+                            case "P":
+                                $categorie = "Primaire";
+                                break;
+                            case "M":
+                                $categorie = "Moyen";
+                                break;
+                            case "S":
+                                $categorie = "Secondaire";
+                                break;
+                            case "E":
+                                $categorie = "Eleve";
+                                $path .= "students/";
+                                break;
+                            case "Pa":
+                                $categorie = "Parent";
+                                $path .= "parents/";
+                                break;
+                            default:
+                                $categorie = "Multi Utilisateurs";
+                                break;
                         }
                         ?>
                             <div class="card">

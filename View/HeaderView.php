@@ -20,6 +20,20 @@ class HeaderView
                     <img style="position: relative; top: 3px;" src="static/logo.png" alt="logo image" width="30" height="24" class="d-inline-block align-top">
                     DZ School
                 </a>
+                <?php
+                if(isset($_SESSION["admin_username"])){
+                    if ($_SESSION["admin_username"] === "admin"){
+                        ?>
+                        <a href="loginMaster.php" type="button" class="btn btn-success">
+                            Admin <span class="badge">*</span>
+                        </a>
+                        <a href="deconnexion.php?userIs=admin" type="button" class="btn btn-danger">
+                            Deconnexion <span class="badge">*</span>
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
                 <div class="d-flex">
                     <a id="facebook" href="#">
                         <i style="color: #4267B2; margin: 0 10px;" class="fab fa-facebook-f fa-2x"></i>

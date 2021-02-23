@@ -445,4 +445,28 @@ class MainController
 
         $pagination_view->display_pagination($old_articles);
     }
+
+    public function GestionArticleController()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("Model/ArticleModel.php");
+        $article_model = new ArticleModel();
+
+        require_once ("View/GestionAdmin.php");
+        $gestion_admin = new GestionAdmin();
+
+        $main_controller->HeaderController();
+
+        $gestion_admin->display_add_article_form();
+
+        $all_articles = $article_model->fetchAllArticles();
+        $gestion_admin->display_delete_article_form($all_articles);
+
+        $all_articles = $article_model->fetchAllArticles();
+        $gestion_admin->display_modify_article_form($all_articles);
+
+        $main_controller->FooterMenuController();
+    }
 }
