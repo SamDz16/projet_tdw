@@ -5,7 +5,7 @@ class StudentLoginView
     public function display_student_login_view()
     {
         ?>
-        <div style="border: 2px solid #5cb85c; border-radius: 10px; padding: 10px; margin: 20px 0;">
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
             <h3 style="margin-bottom: 0;">Espace élève - Login</h3>
             <form style="padding: 15px;" method="post" action="studentLoginMaster.php" enctype="multipart/form-data">
                 <div style="margin: 0 0 5px 0;" class="form-group">

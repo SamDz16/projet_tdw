@@ -39,4 +39,20 @@ class PresentationModel
         $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function deletePresentation($id_presentation)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("DELETE FROM presentation WHERE id_presentation='$id_presentation'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+    public function modifyPresentation($id_presentation, $titre_presentation, $text_presentation, $image_presentation)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("UPDATE presentation set titre_presentation='$titre_presentation',text_presentation='$text_presentation',image_presentation='$image_presentation' WHERE id_presentation='$id_presentation'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
 }

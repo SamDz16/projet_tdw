@@ -122,7 +122,6 @@ class MainController
         require_once ("Model/PresentationModel.php");
         $presentaion = new PresentationModel();
 
-
         $main_controller->HeaderController();
 
         $presentation_articles = $presentaion->fetchPresentationData();
@@ -466,6 +465,30 @@ class MainController
 
         $all_articles = $article_model->fetchAllArticles();
         $gestion_admin->display_modify_article_form($all_articles);
+
+        $main_controller->FooterMenuController();
+    }
+
+    public function GestionPresentationEcole()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("Model/PresentationModel.php");
+        $presentation_model = new PresentationModel();
+
+        require_once ("View/GestionAdmin.php");
+        $gestion_admin = new GestionAdmin();
+
+        $main_controller->HeaderController();
+
+        $gestion_admin->display_upload_presentation_form();
+
+        $presentations = $presentation_model->fetchPresentationData();
+        $gestion_admin->display_delete_presentation_form($presentations);
+
+        $presentations = $presentation_model->fetchPresentationData();
+        $gestion_admin->display_modify_presentation_form($presentations);;
 
         $main_controller->FooterMenuController();
     }

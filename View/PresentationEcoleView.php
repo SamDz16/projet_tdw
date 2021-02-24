@@ -1,9 +1,21 @@
 <style>
-    #articles{
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        grid-gap: 10px;
+    /*#articles{*/
+    /*    display: grid;*/
+    /*    grid-template-columns: repeat(2,1fr);*/
+    /*    grid-gap: 10px;*/
+    /*}*/
+    .media{
+        display: flex;
+        flex-direction: row;
+        margin: 20px 0;
     }
+
+    #articles img{
+        width: 250px;
+        margin-right: 20px;
+        border-radius: 5px;
+    }
+
 </style>
 <?php
 
@@ -37,14 +49,13 @@ class PresentationEcoleView
             while($presentation_article = $presentation_articles->fetch())
             {
                 ?>
-                <div class="card">
+                <div class="media">
                     <img src=<?="static/img/".$presentation_article["image_presentation"]?> class="card-img-top" alt=<?=$presentation_article["titre_presentation"]?>>
-                    <div class="card-body">
+                    <div class="media-body">
                         <h5 class="card-title"><?=$presentation_article["titre_presentation"]?></h5>
                         <p class="card-text"><?=$presentation_article["text_presentation"]?></p>
                         <p style="margin-bottom: 0;" class="card-text"><small class="text-muted"><?=$presentation_article["date_ajout_presentation"]?></small></p>
                         <p class="card-text"><small class="text-muted">Catégorie Article: Présentation Ecole</small></p>
-<!--                        <a style="color: #fff;" href="routerArticle.php?id_article=--><?//=$article['id_article']?><!--" class="btn btn-dark">Afficher la suite</a>-->
                     </div>
                 </div>
                 <?php

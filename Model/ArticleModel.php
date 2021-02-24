@@ -75,7 +75,6 @@ class ArticleModel
 
     public function modifyArticle($id_article, $titre_article, $image_article, $description_article, $users)
     {
-        echo "ID ARTICLE : " . $id_article;
         $con = $this->connexionToDB();
         $res = $con->query("UPDATE article set tittre_article='$titre_article',image_article='$image_article',description_article='$description_article',cycle='$users' WHERE id_article='$id_article';");
         $this->deconnexionFromDB($con);

@@ -51,7 +51,7 @@ class AdminView
         <form method="post" action="loginMaster.php">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Username</label>
-                <input type="email" name="admin_username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="admin_username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">Your data will remain secret!</div>
             </div>
             <div class="mb-3">
@@ -65,35 +65,6 @@ class AdminView
 
     public function display_admin_view()
     {
-        ?>
-<!--            <div>-->
-<!--                <h1 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Page Administrateur: </h1>-->
-<!--                <div style="padding: 10px;">-->
-<!--                    <form method="post" action="loginMaster.php" enctype="multipart/form-data">-->
-<!--                        <div style="margin: 20px 0;" class="form-group green-border-focus">-->
-<!--                            <label for="exampleFormControlTextarea">Titre de présentation de l'école:</label>-->
-<!--                            <input name="titre_presentation_ecole" class="form-control" id="exampleFormControlTextarea" required>-->
-<!--                        </div>-->
-<!--                        <div class="form-group green-border-focus">-->
-<!--                            <label for="exampleFormControlTextarea5">Text de présentation de l'école:</label>-->
-<!--                            <textarea name="text_presentation_ecole" class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>-->
-<!--                        </div>-->
-<!--                        <div style="margin: 20px 0;" class="form-group green-border-focus">-->
-<!--                            <label for="imageSelect">Veuillez choisir une image a uploader:</label>-->
-<!--                            <select id="imageSelect" name="image" class="form-select" aria-label="Default select example">-->
-<!--                                <option value="img_1.jpg">Image 1</option>-->
-<!--                                <option value="img_2.jpg">Image 2</option>-->
-<!--                                <option value="img_3.jpg">Image 3</option>-->
-<!--                                <option value="img_4.jpg" selected>Image 4</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!---->
-<!--                        <button type="submit" class="btn btn-success">Enregistrer</button>-->
-<!--                        <a style="color: #fff; margin: 20px 0 20px 0;" href="deconnexion.php?userIs=admin" class="btn btn-danger">Déconnexion</a>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-        <?php
         ?>
             <div id="admin-view">
                 <div id="article-details" class="card">
@@ -178,7 +149,6 @@ class AdminView
                 </div>
             </div>
         <?php
-
     }
 }
 ?>

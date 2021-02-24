@@ -28,7 +28,7 @@ class ArticleView
     {
         include_once ("static/html_header.php");
 
-        $path = "static/img/";
+        $path = "static/";
         $categorie = "";
 
         switch ($article["cycle"]){

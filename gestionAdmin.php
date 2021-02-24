@@ -19,6 +19,8 @@ include_once("static/html_header.php");
                     break;
 
                 case "presentation_ecole":
+                    $main_controller->GestionPresentationEcole();
+                    break;
 
                 case "emploi_du_temps":
 
