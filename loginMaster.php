@@ -8,6 +8,9 @@
 
     require_once ("Model/PresentationModel.php");
     $presentation_model = new PresentationModel();
+
+    require_once ("Model/EnseignantModel.php");
+    $enseignant_model = new EnseignantModel();
 ?>
 
 <?php
@@ -29,7 +32,7 @@
         $article_model->modifyArticle($_POST["modify_article"], $_POST["titre_article_modify"], $_POST["image_article_modify"],$_POST["description_article_modify"],$users);
     }
     else if(isset($_POST["titre_presentation_ecole"])){
-//        if ($_POST["image_presentation"] === "") $image = "";
+
         $presentation_model->upload_presentation($_POST["titre_presentation_ecole"], $_POST["text_presentation_ecole"], $_POST["image_presentation"]);
     }
     else if(isset($_POST["delete_presentation"])){
@@ -38,8 +41,23 @@
     }
     else if(isset($_POST["modify_presentation"])){
 
-
         $presentation_model->modifyPresentation($_POST["modify_presentation"], $_POST["modify_titre_presentation"], $_POST["modify_text_presentation"], $_POST["modify_image_presentation"]);
+    }
+    else if(isset($_POST["ajouter_nom_ens"])){
+
+        $enseignant_model->add_enseignant($_POST["ajouter_nom_ens"], $_POST["prenom_ens"], $_POST["jour_reception"]." ".$_POST["heure_reception"]);
+    }
+    else if(isset($_POST["supprimer_ens"])){
+
+        $enseignant_model->delete_enseignant($_POST["supprimer_ens"]);
+    }
+    else if(isset($_POST["modifier_ens"])){
+
+        $enseignant_model->modify_enseignant($_POST["modifier_ens"], $_POST["modifier_nom_ens"], $_POST["modifier_prenom_ens"], $_POST["modifier_jour_reception"]." ".$_POST["modifier_heure_reception"]);
+    }
+    else if(isset($_POST["ens"])){
+
+        $enseignant_model->add_ens_classe_heure_travail($_POST["ens"], $_POST["classe"], $_POST["heure_travail"]);
     }
 
 ?>

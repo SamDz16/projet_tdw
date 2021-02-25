@@ -254,23 +254,6 @@ class GestionAdmin
                                 ?>
                             </select>
                         </div>
-<!--                        <div style="margin: 20px 0;" class="form-group green-border-focus">-->
-<!--                            <label for="exampleFormControlTextarea">Titre de présentation de l'école:</label>-->
-<!--                            <input name="delete_titre_presentation_ecole" class="form-control" id="exampleFormControlTextarea" required>-->
-<!--                        </div>-->
-<!--                        <div class="form-group green-border-focus">-->
-<!--                            <label for="exampleFormControlTextarea5">Text de présentation de l'école:</label>-->
-<!--                            <textarea name="delete_text_presentation_ecole" class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>-->
-<!--                        </div>-->
-<!--                        <div style="margin: 20px 0;" class="form-group green-border-focus">-->
-<!--                            <label for="imageSelect">Veuillez choisir une image a uploader:</label>-->
-<!--                            <select id="imageSelect" name="deete_image_presentation" class="form-select" aria-label="Default select example">-->
-<!--                                <option value="img_1.jpg">Image 1</option>-->
-<!--                                <option value="img_2.jpg">Image 2</option>-->
-<!--                                <option value="img_3.jpg">Image 3</option>-->
-<!--                                <option value="img_4.jpg" selected>Image 4</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
 
                         <button type="submit" class="btn btn-danger">Supprimer</button>
 <!--                        <a style="color: #fff; margin: 20px 0 20px 0;" href="deconnexion.php?userIs=admin" class="btn btn-danger">Déconnexion</a>-->
@@ -324,4 +307,248 @@ class GestionAdmin
             </div>
         <?php
     }
+
+    public function display_ens_classe_heure_travail($results)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Liste des enseignants associés avec leurs classes et leurs heures de travail: </h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom Enseignant</th>
+                        <th scope="col">Prenom Enseignant</th>
+                        <th scope="col">Jour de Travail</th>
+                        <th scope="col">Heure de Travail</th>
+                        <th scope="col">Classe</th>
+                        <th scope="col">Cycle</th>
+                        <th scope="col">Heure de Réception</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php
+                        $i = 1;
+                            while($result = $results->fetch()){
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?=$i?></th>
+                                        <td><?=$result["nom_enseignant"]?></td>
+                                        <td><?=$result["prenom_enseignant"]?></td>
+                                        <td><?=$result["jour_travail"]?></td>
+                                        <td><?=$result["heure_travail"]?></td>
+                                        <td><?=$result["nom_classe"]?></td>
+                                        <td><?=$result["nom_cycle"]?></td>
+                                        <td><?=$result["heure_reception_enseignant"]?></td>
+                                    </tr>
+                                <?php
+                                ++$i;
+                            }
+                        ?>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <?php
+    }
+
+    public function display_add_enseignant_form()
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Enseignant: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="nom_ens">Nom Enseignant:</label>
+                            <input name="ajouter_nom_ens" class="form-control" id="nom_ens" required>
+                        </div>
+
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="prenom_ens">Prenom Enseignant:</label>
+                            <input name="prenom_ens" class="form-control" id="prenom_ens" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="jour">Jour Réception:</label>
+                            <select id="jour" name="jour_reception" class="form-select" aria-label="Default select example">
+                                <option value="Dimanche" selected>Dimanche</option>
+                                <option value="Lundi">Lundi</option>
+                                <option value="Mardi">Mardi</option>
+                                <option value="Mercredi">Mercredi</option>
+                                <option value="Jeudi">Jeudi</option>
+                            </select>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="heure">Heure Réception:</label>
+                            <select id="heure" name="heure_reception" class="form-select" aria-label="Default select example">
+                                <option value="8:00" selected>8h</option>
+                                <option value="9:00">9h</option>
+                                <option value="10:00">10h</option>
+                                <option value="11:00">11h</option>
+                                <option value="14:00">14h</option>
+                                <option value="15:00">15h</option>
+                                <option value="16:00">16h</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Ajouter</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_delete_enseignant_form($enseignants)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer Enseignant: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="delete_ens">Veuillez sélectionner l'enseignant à supprimer:</label>
+                        <select id="delete_ens" name="supprimer_ens" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($enseignant = $enseignants->fetch()){
+                                ?>
+                                <option value=<?= (int) $enseignant["id_enseignant"]?>><?="ID: ". $enseignant["id_enseignant"] ." - ". "Nom: ". $enseignant["nom_enseignant"] ." - ". "Prenom: ". $enseignant["prenom_enseignant"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_modify_enseignant_form($enseignants)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Enseignant: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="modify_ens">Veuillez sélectionner l'enseignant à modifier:</label>
+                        <select id="modify_ens" name="modifier_ens" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($enseignant = $enseignants->fetch()){
+                                ?>
+                                <option value=<?= (int) $enseignant["id_enseignant"]?>><?="ID: ". $enseignant["id_enseignant"] ." - ". "Nom: ". $enseignant["nom_enseignant"] ." - ". "Prenom: ". $enseignant["prenom_enseignant"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_nom_ens">Nom Enseignant:</label>
+                            <input name="modifier_nom_ens" class="form-control" id="modify_nom_ens" required>
+                        </div>
+
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="add_prenom_ens">Prenom Enseignant:</label>
+                            <input name="modifier_prenom_ens" class="form-control" id="add_prenom_ens" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="jour">Jour Réception:</label>
+                            <select id="jour" name="modifier_jour_reception" class="form-select" aria-label="Default select example">
+                                <option value="Dimanche" selected>Dimanche</option>
+                                <option value="Lundi">Lundi</option>
+                                <option value="Mardi">Mardi</option>
+                                <option value="Mercredi">Mercredi</option>
+                                <option value="Jeudi">Jeudi</option>
+                            </select>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="heure">Heure Réception:</label>
+                            <select id="heure" name="modifier_heure_reception" class="form-select" aria-label="Default select example">
+                                <option value="8:00" selected>8h</option>
+                                <option value="9:00">9h</option>
+                                <option value="10:00">10h</option>
+                                <option value="11:00">11h</option>
+                                <option value="14:00">14h</option>
+                                <option value="15:00">15h</option>
+                                <option value="16:00">16h</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Modifier</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_add_enseignant_classe_heure_form($enseignants, $classes, $heures_travail)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Gestion Enseignant-Classe-Heure de Travail: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="ens">Veuillez sélectionner l'enseignant à ajouter:</label>
+                        <select id="ens" name="ens" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($enseignant = $enseignants->fetch()){
+                                ?>
+                                <option value=<?= (int) $enseignant["id_enseignant"]?>><?="Nom: ". $enseignant["nom_enseignant"] ." - ". "Prenom: ". $enseignant["prenom_enseignant"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="classe">Veuillez sélectionner la classe à associer:</label>
+                        <select id="classe" name="classe" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($classe = $classes->fetch()){
+                                ?>
+                                <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"] ." - ". "Cycle: ". $classe["nom_cycle"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="heure_travail">Veuillez sélectionner l'here de travail de cet enseignant:</label>
+                        <select id="heure_travail" name="heure_travail" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($heure_travail = $heures_travail->fetch()){
+                                ?>
+                                <option value=<?= (int) $heure_travail["id_heure_travail"]?>><?="Jour: ". $heure_travail["jour_travail"] ." - ". "Heure: ". $heure_travail["heure_travail"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
 }

@@ -55,4 +55,5 @@ class PresentationModel
         $this->deconnexionFromDB($con);
         return $res;
     }
+
 }

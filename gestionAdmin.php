@@ -25,6 +25,8 @@ include_once("static/html_header.php");
                 case "emploi_du_temps":
 
                 case "enseignant":
+                    $main_controller->GestionEnseignant();
+                    break;
 
                 case "utilisateur":
 

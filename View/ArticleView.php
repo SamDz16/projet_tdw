@@ -1,4 +1,13 @@
 <style>
+    .media{
+        display: flex;
+        flex-direction: row;
+    }
+    .media img{
+        width: 250px;
+        border-radius: 10px;
+        margin-right: 20px;
+    }
     #parent-articles{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -34,12 +43,15 @@ class ArticleView
         switch ($article["cycle"]){
             case "P":
                 $categorie = "Primaire";
+                $path .= "img/";
                 break;
             case "M":
                 $categorie = "Moyen";
+                $path .= "img/";
                 break;
             case "S":
                 $categorie = "Secondaire";
+                $path .= "img/";
                 break;
             case "E":
                 $categorie = "Eleve";
@@ -51,22 +63,22 @@ class ArticleView
                 break;
             default:
                 $categorie = "Multi Utilisateurs";
+                $path .= "parents/";
                 break;
         }
 
         ?>
-        <div id="article-details" class="card">
-            <img src=<?=$path.$article["image_article"]?> class="card-img-top" alt=<?=$article["tittre_article"]?>>
-            <div class="card-body">
-                <h5 class="card-title"><?=$article["tittre_article"]?></h5>
-                <p class="card-text"><?=$article["description_article"]?></p>
-                <p style="margin-bottom: 0;" class="card-text"><small class="text-muted"><?=$article["data_ajout_article"]?></small></p>
-                <p class="card-text"><small class="text-muted">Catégorie Article: <?=$categorie?></small></p>
-                <a style="color: #fff;" href="index.php" class="btn btn-dark">Revenir vers la page d'accueil</a>
+            <div class="media">
+                <img src=<?=$path.$article["image_article"]?> class="card-img-top" alt="<?=$article["tittre_article"]?>">
+                <div class="media-body">
+                    <h5 class="card-title"><?=$article["tittre_article"]?></h5>
+                    <p class="card-text"><?=$article["description_article"]?></p>
+                    <p style="margin-bottom: 0;" class="card-text"><small class="text-muted"><?=$article["data_ajout_article"]?></small></p>
+                    <p class="card-text"><small class="text-muted">Catégorie Article: <?=$categorie?></small></p>
+                    <a style="color: #fff;" href="index.php" class="btn btn-dark">Revenir vers la page d'accueil</a>
+                </div>
             </div>
-        </div>
         <?php
-        include_once ("static/html_footer.php");
     }
 
     public function display_parent_articles_view($parent_articles)

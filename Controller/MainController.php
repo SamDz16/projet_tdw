@@ -1,12 +1,12 @@
 <style>
-    #images{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 20px;
-    }
-    #images .img{
-        width: 450px;
-    }
+    /*#images{*/
+    /*    display: grid;*/
+    /*    grid-template-columns: repeat(2, 1fr);*/
+    /*    grid-gap: 20px;*/
+    /*}*/
+    /*#images .img{*/
+    /*    width: 450px;*/
+    /*}*/
 </style>
 <?php
 
@@ -25,13 +25,6 @@ class MainController
         $admin_view = new AdminView();
         $admin_view->display_admin_login();
     }
-
-//    public function AdminController()
-//    {
-//        require_once("View/AdminView.php");
-//        $admin_view = new AdminView();
-//        $admin_view->display_admin_login();
-//    }
 
     public function CarousselController()
     {
@@ -489,6 +482,43 @@ class MainController
 
         $presentations = $presentation_model->fetchPresentationData();
         $gestion_admin->display_modify_presentation_form($presentations);;
+
+        $main_controller->FooterMenuController();
+    }
+
+    public function GestionEnseignant()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("Model/EnseignantModel.php");
+        $enseignant_model = new EnseignantModel();
+        require_once ("Model/ClasseModel.php");
+        $classe_model = new ClasseModel();
+        require_once ("Model/HeureTravailModel.php");
+        $heure_travail_model = new HeureTravailModel();
+
+        require_once ("View/GestionAdmin.php");
+        $gestion_admin = new GestionAdmin();
+
+        $main_controller->HeaderController();
+
+        $res = $enseignant_model->fetch_enseignant_classe_heure_travail();
+        $gestion_admin->display_ens_classe_heure_travail($res);
+
+        $gestion_admin->display_add_enseignant_form();
+
+        $enseignants = $enseignant_model->fetchEnseignants();
+        $gestion_admin->display_delete_enseignant_form($enseignants);
+
+        $enseignants = $enseignant_model->fetchEnseignants();
+        $gestion_admin->display_modify_enseignant_form($enseignants);;
+
+
+        $enseignants = $enseignant_model->fetchEnseignants();
+        $classes = $classe_model->fetchClasses();
+        $heures_travail = $heure_travail_model->fetchHeuresTravail();
+        $gestion_admin->display_add_enseignant_classe_heure_form($enseignants,$classes,$heures_travail);
 
         $main_controller->FooterMenuController();
     }
