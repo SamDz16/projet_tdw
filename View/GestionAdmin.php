@@ -551,4 +551,251 @@ class GestionAdmin
         <?php
     }
 
+    public function display_modify_admin_form($admins)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Admin</h3>
+            <form method="post" action="loginMaster.php">
+                <div class="form-group">
+                    <label for="modify_admin">Veuillez sélectionner l'admin à modifier:</label>
+                    <select id="modify_admin" name="modify_admin" class="form-select" aria-label="Default select example">
+                        <?php
+                        while($admin = $admins->fetch()){
+                            ?>
+                            <option value=<?=(int) $admin["id_admin"]?>><?="ID: ". (int) $admin["id_admin"] . " - Nom Utilisateur: ". $admin["username_admin"]. " - Mot de passe Utilisateur: ". $admin["password_admin"]?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+
+               <div class="row">
+                   <div class="form-group col">
+                       <label for="admin_username">Nom d'Utilisateur:</label>
+                       <input name="modify_admin_username" type="text" class="form-control" id="admin_username" aria-describedby="emailHelp">
+                   </div>
+                   <div class="form-group col">
+                       <label for="admin_password">Mot de Passe:</label>
+                       <input name="modify_admin_password" type="password" class="form-control" id="admin_password" aria-describedby="emailHelp">
+                   </div>
+               </div>
+
+                <button style="margin: 20px 0;" type="submit" class="btn btn-danger">Modifier Admin</button>
+            </form>
+        </div>
+        <?php
+    }
+
+    public function display_add_eleve_form($classes, $parents)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Élève: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="nom_eleve">Nom Élève:</label>
+                            <input type="text" name="ajouter_nom_eleve" class="form-control" id="nom_eleve" required>
+                        </div>
+
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="prenom_eleve">Prenom Élève:</label>
+                            <input type="text" name="ajouter_prenom_eleve" class="form-control" id="prenom_eleve" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="adresse_eleve">Adresse Élève:</label>
+                            <input type="text" name="ajouter_adresse_eleve" class="form-control" id="adresse_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="email_eleve">E-mail Élève:</label>
+                            <input type="email" name="ajouter_email_eleve" class="form-control" id="email_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="photo_eleve">Veuillez sélectionner la photo de l'élève:</label>
+                            <select name="ajouter_photo_eleve" class="form-select" id="photo_eleve">
+                                <option value="st_2.jpg">Image 1</option>
+                                <option value="st_5.jpg">Image 2</option>
+                                <option value="st_6.jpg">Image 3</option>
+                                <option value="st_7.jpg">Image 4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="dob_eleve">Date de Naissance Élève:</label>
+                            <input type="date" name="ajouter_dob_eleve" class="form-control" id="dob_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="email_eleve">Année Élève:</label>
+                            <input type="text" name="ajouter_annee_eleve" class="form-control" id="email_eleve" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="classe_eleve">Veuillez sélectionner la classe de l'élève:</label>
+                            <select id="classe_eleve" name="ajouter_classe_eleve" class="form-select" aria-label="Default select example">
+                                <?php
+                                while($classe = $classes->fetch()){
+                                    ?>
+                                    <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"]?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="parent_eleve">Veuillez sélectionner le parent de l'élève:</label>
+                            <select id="parent_eleve" name="ajouter_parent_eleve" class="form-select" aria-label="Default select example">
+                                <?php
+                                while($parent = $parents->fetch()){
+                                    ?>
+                                    <option value=<?= (int) $parent["id_parent"]?>><?="Nom Parent: ". $parent["nom_parent"]." - ". "Prénom Parent: ". $parent["prenom_parent"]?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Ajouter Élève</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_delete_eleve_form($eleves)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer Élève: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group col">
+                        <label for="remove_eleve">Veuillez sélectionner l'élève à supprimer:</label>
+                        <select id="remove_eleve" name="supprimer_eleve" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($eleve = $eleves->fetch()){
+                                ?>
+                                <option value=<?= (int) $eleve["id_eleve"]?>><?="Nom Classe: ". $eleve["nom_eleve"] . " - ". "Prenom Classe: ". $eleve["prenom_eleve"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Supprimer Élève</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_modify_eleve_form($eleves, $classes, $parents)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Élève: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="modify_eleve">Veuillez sélectionner l'élève à modifier:</label>
+                        <select id="modify_eleve" name="modifier_eleve" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($eleve = $eleves->fetch()){
+                                ?>
+                                <option value=<?= (int) $eleve["id_eleve"]?>><?="ID: ".$eleve["id_eleve"] . " - " . "Nom Classe: ". $eleve["nom_eleve"] . " - ". "Prenom Classe: ". $eleve["prenom_eleve"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="nom_eleve">Nom Élève:</label>
+                            <input type="text" name="modifier_nom_eleve" class="form-control" id="nom_eleve" required>
+                        </div>
+
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="prenom_eleve">Prenom Élève:</label>
+                            <input type="text" name="modifier_prenom_eleve" class="form-control" id="prenom_eleve" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="adresse_eleve">Adresse Élève:</label>
+                            <input type="text" name="modifier_adresse_eleve" class="form-control" id="adresse_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="email_eleve">E-mail Élève:</label>
+                            <input type="email" name="modifier_email_eleve" class="form-control" id="email_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="photo_eleve">Veuillez sélectionner la photo de l'élève:</label>
+                            <select name="modifier_photo_eleve" class="form-select" id="photo_eleve">
+                                <option value="st_2.jpg">Image 1</option>
+                                <option value="st_5.jpg">Image 2</option>
+                                <option value="st_6.jpg">Image 3</option>
+                                <option value="st_7.jpg">Image 4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="dob_eleve">Date de Naissance Élève:</label>
+                            <input type="date" name="modifier_dob_eleve" class="form-control" id="dob_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="email_eleve">Année Élève:</label>
+                            <input type="text" name="modifier_annee_eleve" class="form-control" id="email_eleve" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="classe_eleve">Veuillez sélectionner la classe de l'élève:</label>
+                            <select id="classe_eleve" name="modifier_classe_eleve" class="form-select" aria-label="Default select example">
+                                <?php
+                                while($classe = $classes->fetch()){
+                                    ?>
+                                    <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"]?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="parent_eleve">Veuillez sélectionner le parent de l'élève:</label>
+                            <select id="parent_eleve" name="modifier_parent_eleve" class="form-select" aria-label="Default select example">
+                                <?php
+                                while($parent = $parents->fetch()){
+                                    ?>
+                                    <option value=<?= (int) $parent["id_parent"]?>><?="Nom Parent: ". $parent["nom_parent"]." - ". "Prénom Parent: ". $parent["prenom_parent"]?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Modifier Élève</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
 }

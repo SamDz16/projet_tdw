@@ -20,10 +20,6 @@ class StudentLoginView
                     <small id="textHelp" class="form-text text-muted">Vos données vont rester secret
                     </small>
                 </div>
-                <!--                    <div style="margin: 20px 0;" class="form-group">-->
-                <!--                        <label style="margin-bottom: 5px;" for="exampleInputPassword1">Mot de passe:</label>-->
-                <!--                        <input name="student_password" type="password" class="form-control" id="exampleInputPassword1">-->
-                <!--                    </div>-->
 
                 <button type="submit" class="btn btn-success">S'authentifier</button>
                 <a style="color: #fff;" href="index.php" class="btn btn-secondary">Revenir vers la page d'accueil</a>

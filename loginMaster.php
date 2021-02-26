@@ -11,6 +11,12 @@
 
     require_once ("Model/EnseignantModel.php");
     $enseignant_model = new EnseignantModel();
+
+    require_once ("Model/AdminLoginModel.php");
+    $admin_model = new AdminLoginModel();
+
+    require_once ("Model/StudentModel.php");
+    $student_model = new StudentModel();
 ?>
 
 <?php
@@ -59,7 +65,22 @@
 
         $enseignant_model->add_ens_classe_heure_travail($_POST["ens"], $_POST["classe"], $_POST["heure_travail"]);
     }
+    else if(isset($_POST["modify_admin"])){
 
+        $admin_model->modifyAdmin($_POST["modify_admin_username"], $_POST["modify_admin_password"]);
+    }
+    else if(isset($_POST["ajouter_nom_eleve"])){
+
+        $student_model->addStudent($_POST["ajouter_nom_eleve"],$_POST["ajouter_prenom_eleve"],$_POST["ajouter_adresse_eleve"],$_POST["ajouter_email_eleve"],$_POST["ajouter_photo_eleve"],$_POST["ajouter_dob_eleve"],$_POST["ajouter_annee_eleve"],$_POST["ajouter_classe_eleve"],$_POST["ajouter_parent_eleve"]);
+    }
+    else if(isset($_POST["supprimer_eleve"])){
+
+        $student_model->deleteStudent($_POST["supprimer_eleve"]);
+    }
+    else if(isset($_POST["modifier_nom_eleve"])){
+
+        $student_model->modifyStudent($_POST["modifier_eleve"], $_POST["modifier_nom_eleve"],$_POST["modifier_prenom_eleve"],$_POST["modifier_adresse_eleve"],$_POST["modifier_email_eleve"],$_POST["modifier_photo_eleve"],$_POST["modifier_dob_eleve"],$_POST["modifier_annee_eleve"],$_POST["modifier_classe_eleve"],$_POST["modifier_parent_eleve"]);
+    }
 ?>
 
 <?php

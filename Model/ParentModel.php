@@ -27,6 +27,14 @@ class ParentModel
         return $res;
     }
 
+    public function fetchParents()
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM parent");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
     public function fetchParentSons($parent_id)
     {
         $con = $this->connexionToDB();

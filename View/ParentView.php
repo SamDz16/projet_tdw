@@ -52,11 +52,11 @@ class ParentView
     {
         ?>
         <div>
+            <h3 style="margin-bottom: 20px;">Informations sur les enfants de <?=$_SESSION["parent_firstname"]?> <?=$_SESSION["parent_lastname"]?></h3>
             <?php
             while($parent_son = $parent_sons->fetch()){
                 ?>
                 <div>
-                    <h3 style="margin-bottom: 20px;">Informations sur les enfants de <?=$parent_son["nom_parent"]?> <?=$parent_son["prenom_parent"]?></h3>
                     <h5 style="margin-bottom: 20px;">Informations sur <?=$parent_son["nom_eleve"]?> <?=$parent_son["prenom_eleve"]?></h5>
                     <div style="margin: 20px 0;" id="pr1-details" class="media">
                         <img style="width: 250px;" src="static/students/<?=$parent_son["photo_eleve"]?>" class="mr-3" alt=<?=$parent_son["nom_eleve"]?>>

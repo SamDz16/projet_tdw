@@ -31,4 +31,20 @@ class AdminLoginModel
         $r = $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function fetchAdmins()
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM admin WHERE id_admin=0");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+    public function modifyAdmin($admin_username, $admin_password)
+    {
+        $con = $this->connexionToDB();
+        $con->query("UPDATE admin set username_admin='$admin_username',password_admin='$admin_password' WHERE id_admin=0");
+        $this->deconnexionFromDB($con);
+    }
+
 }

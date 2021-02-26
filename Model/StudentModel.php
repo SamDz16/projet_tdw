@@ -43,4 +43,33 @@ class StudentModel
         return $res;
     }
 
+    public function addStudent($nom_eleve, $prenom_eleve, $adresse_eleve,$email_eleve,$photo_eleve,$date_naissance_eleve,$annee_eleve,$classe_eleve,$parent_eleve)
+    {
+        $con = $this->connexionToDB();
+        $stmt = $con->prepare("INSERT INTO eleve (nom_eleve,prenom_eleve,adresse_eleve,email_eleve,photo_eleve,date_naissance_eleve,annee_eleve,id_classe,id_parent) VALUES (:nom, :prenom, :adresse, :email, :photo, :dob, :annee, :classe, :parent)");
+        $stmt->execute([':nom' => $nom_eleve, ':prenom' => $prenom_eleve, ':adresse' => $adresse_eleve, ':email' => $email_eleve, ':photo' => $photo_eleve, ':dob' => $date_naissance_eleve, ':annee' => $annee_eleve, ':classe' => $classe_eleve, ':parent' => $parent_eleve]);
+        $this->deconnexionFromDB($con);
+    }
+
+    public function deleteStudent($eleve_id)
+    {
+        $con = $this->connexionToDB();
+        $con->query("DELETE FROM eleve WHERE id_eleve='$eleve_id'");
+        $this->deconnexionFromDB($con);
+    }
+
+    public function fetchStudents()
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM eleve");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+    public function modifyStudent($eleve_id, $nom_eleve, $prenom_eleve, $adresse_eleve,$email_eleve,$photo_eleve,$date_naissance_eleve,$annee_eleve,$classe_eleve,$parent_eleve)
+    {
+        $con = $this->connexionToDB();
+        $con->query("UPDATE eleve set nom_eleve='$nom_eleve',prenom_eleve='$prenom_eleve',adresse_eleve='$adresse_eleve',email_eleve='$email_eleve',photo_eleve='$photo_eleve',date_naissance_eleve='$date_naissance_eleve',annee_eleve='$annee_eleve',id_classe='$classe_eleve',id_parent='$parent_eleve' WHERE id_eleve='$eleve_id'");
+        $this->deconnexionFromDB($con);
+    }
 }

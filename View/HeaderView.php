@@ -9,7 +9,7 @@
 
 class HeaderView
 {
-    public function display_header()
+    public function display_header($admin)
     {
         ?>
 
@@ -22,7 +22,7 @@ class HeaderView
                 </a>
                 <?php
                 if(isset($_SESSION["admin_username"])){
-                    if ($_SESSION["admin_username"] === "admin"){
+                    if ($_SESSION["admin_username"] === $admin["username_admin"] && $_SESSION["admin_password"] === $admin["password_admin"]){
                         ?>
                         <a href="loginMaster.php" type="button" class="btn btn-success">
                             Admin <span class="badge">*</span>

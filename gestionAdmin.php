@@ -5,9 +5,15 @@ include_once("static/html_header.php");
 ?>
 
 <?php
+require_once ("Model/AdminLoginModel.php");
+$admin_model = new AdminLoginModel();
+$admin = $admin_model->admin_login();
+?>
+
+<?php
 
     if(isset($_GET["gestion"]) && isset($_SESSION["admin_username"])){
-        if($_SESSION["admin_username"] === "admin"){
+        if($_SESSION["admin_username"] === $admin["username_admin"] && $_SESSION["admin_password"] === $admin["password_admin"]){
             // L'admin doit etre authentifie!
 
             require_once ("Controller/MainController.php");
@@ -29,6 +35,8 @@ include_once("static/html_header.php");
                     break;
 
                 case "utilisateur":
+                    $main_controller->GestionUtilisateurs();
+                    break;
 
                 case "restauration":
 

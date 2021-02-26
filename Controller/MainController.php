@@ -16,7 +16,11 @@ class MainController
     {
         require_once("View/HeaderView.php");
         $header_view = new HeaderView();
-        $header_view->display_header();
+
+        require_once ("Model/AdminLoginModel.php");
+        $admin_model = new AdminLoginModel();
+        $admin = $admin_model->admin_login();
+        $header_view->display_header($admin);
     }
 
     public function AdminController()
@@ -519,6 +523,47 @@ class MainController
         $classes = $classe_model->fetchClasses();
         $heures_travail = $heure_travail_model->fetchHeuresTravail();
         $gestion_admin->display_add_enseignant_classe_heure_form($enseignants,$classes,$heures_travail);
+
+        $main_controller->FooterMenuController();
+    }
+
+    public function GestionUtilisateurs()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("Model/AdminLoginModel.php");
+        $admin_model = new AdminLoginModel();
+
+        require_once ("Model/ClasseModel.php");
+        $classe_model = new ClasseModel();
+
+        require_once ("Model/ParentModel.php");
+        $parent_model = new ParentModel();
+
+        require_once ("Model/StudentModel.php");
+        $student_model = new StudentModel();
+
+        require_once ("View/GestionAdmin.php");
+        $gestion_admin = new GestionAdmin();
+
+        $main_controller->HeaderController();
+
+        // Gestion Admin
+        $admins = $admin_model->fetchAdmins();
+        $gestion_admin->display_modify_admin_form($admins);
+
+        $classes = $classe_model->fetchClasses();
+        $parents = $parent_model->fetchParents();
+        $gestion_admin->display_add_eleve_form($classes,$parents);
+
+        $students = $student_model->fetchStudents();
+        $gestion_admin->display_delete_eleve_form($students);
+
+        $students = $student_model->fetchStudents();
+        $classes = $classe_model->fetchClasses();
+        $parents = $parent_model->fetchParents();
+        $gestion_admin->display_modify_eleve_form($students,$classes,$parents);
 
         $main_controller->FooterMenuController();
     }
