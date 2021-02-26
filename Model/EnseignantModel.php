@@ -19,6 +19,14 @@ class EnseignantModel
         return 1;
     }
 
+    public function fetchTeacher($ens_lastname, $ens_firstname)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM enseignant WHERE nom_enseignant='$ens_lastname' AND prenom_enseignant='$ens_firstname'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
     public function fetchEnseignants()
     {
         $con = $this->connexionToDB();
@@ -62,4 +70,35 @@ class EnseignantModel
         $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function fetchStudentsOfTeacher($teacher_id)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT nom_enseignant,prenom_enseignant,photo_enseignant,heure_reception_enseignant,mail_enseignant,tel_enseignant,nom_eleve,prenom_eleve,photo_eleve,email_eleve,adresse_eleve,date_naissance_eleve,annee_eleve,nom_classe,nom_cycle,classe.id_EDT FROM ligne_ens_classe INNER JOIN enseignant ON ligne_ens_classe.id_enseignant=enseignant.id_enseignant INNER JOIN classe ON ligne_ens_classe.id_classe=classe.id_classe INNER JOIN eleve ON eleve.id_classe=classe.id_classe WHERE enseignant.id_enseignant='$teacher_id'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+    public function fetchTeacherById($teacher_id)
+    {
+        $con = $this->connexionToDB();
+        return $con->query("SELECT * FROM enseignant WHERE id_enseignant='$teacher_id'");
+        $this->deconnexionFromDB($con);
+    }
+
+    public function fetchEnseignantMatieres($teacher_id)
+    {
+        $con = $this->connexionToDB();
+        return $con->query("SELECT nom_enseignant,prenom_enseignant,nom_matiere FROM enseignant INNER JOIN matiere ON enseignant.id_enseignant=matiere.id_enseignant WHERE enseignant.id_enseignant='$teacher_id'");
+        $this->deconnexionFromDB($con);
+    }
+
+    public function fetchEnseignantEleveNotes($teacher_id)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT nom_enseignant,prenom_enseignant,nom_eleve,prenom_eleve,classe.nom_classe,classe.nom_cycle,classe.id_EDT,matiere.nom_matiere,note FROM note INNER JOIN matiere ON note.nom_matiere=matiere.nom_matiere INNER JOIN eleve ON note.id_eleve=eleve.id_eleve INNER JOIN classe ON classe.id_classe=eleve.id_classe INNER JOIN enseignant ON matiere.id_enseignant=enseignant.id_enseignant WHERE enseignant.id_enseignant='$teacher_id'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
 }

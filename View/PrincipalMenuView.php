@@ -22,6 +22,7 @@ class PrincipalMenuView
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="userRouter.php?userIs=parent">Parent</a></li>
                     <li><a class="dropdown-item" href="userRouter.php?userIs=eleve">Eleves</a></li>
+                    <li><a class="dropdown-item" href="userRouter.php?userIs=enseignant">Enseignant</a></li>
                 </ul>
             </li>
             <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="contact.php">Contact</a>

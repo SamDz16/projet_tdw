@@ -13,6 +13,9 @@ if(isset($_GET["userIs"])){
     }else if ($_GET["userIs"] === "parent"){
         unset($_SESSION["parent_firstname"], $_SESSION["parent_lastname"], $_SESSION["parent_id"]);
         header("Location: http://". $_SERVER['HTTP_HOST']. "/PROJECT_TDW/index.php");
+    }else if ($_GET["userIs"] === "enseignant") {
+        unset($_SESSION["ens_firstname"], $_SESSION["ens_lastname"], $_SESSION["ens_id"]);
+        header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PROJECT_TDW/index.php");
     }else {
         echo "Action non permise!";
     }

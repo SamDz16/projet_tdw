@@ -308,6 +308,26 @@ class MainController
 
     }
 
+    public function EnseignantController()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
+        require_once ("Model/ArticleModel.php");
+        $article_model = new ArticleModel();
+        $ens_articles = $article_model->fetchCycleArticles("Ens");
+
+        require_once ("View/EnseignantView.php");
+        $ens_view = new EnseignantView();
+        $ens_view->display_ens_login_view();
+
+        $ens_view->display_ens_articles_view($ens_articles);
+
+        $main_controller->FooterMenuController();
+    }
+
     public static function StudentLoginController()
     {
         require_once ("View/HeaderView.php");
@@ -408,6 +428,60 @@ class MainController
             $parent_sons_activities = $parent_model->fetchActivities($_SESSION["parent_id"]);
 
             $parent_view->display_parent_sons_detail($parent_sons, $parent_sons_notes, $parent_sons_remarques_ens, $parent_sons_activities);
+
+        }
+        $main_controller->FooterMenuController();
+    }
+
+    public static function EnseignantLoginController()
+    {
+        require_once ("View/HeaderView.php");
+        $main_controller = new self();
+        $main_controller->HeaderController();
+
+        require_once ("Model/EnseignantModel.php");
+        $ens_model = new EnseignantModel();
+
+        require_once ("View/EnseignantView.php");
+        $ens_view = new EnseignantView();
+
+        if(!isset($_SESSION["ens_firstname"])){
+
+            $ens_lastname = $_POST["nom_ens"];
+            $ens_firstname = $_POST["prenom_ens"];
+
+            $ens = $ens_model->fetchTeacher($ens_lastname, $ens_firstname)->fetch();
+
+            if($ens){
+                // Means teacher exists in database
+                $_SESSION["ens_id"] = $ens["id_enseignant"];
+                $_SESSION["ens_firstname"] = $ens["prenom_enseignant"];
+                $_SESSION["ens_lastname"] = $ens["nom_enseignant"];
+
+                $ens_details = $ens_model->fetchTeacherById($_SESSION["ens_id"])->fetch();
+                $ens_matieres = $ens_model->fetchEnseignantMatieres($_SESSION["ens_id"]);
+                $ens_view->display_ens_details($ens_details, $ens_matieres);
+
+                $results = $ens_model->fetchStudentsOfTeacher($_SESSION["ens_id"]);
+                $ens_view->display_student_details($results);
+
+                $results = $ens_model->fetchEnseignantEleveNotes($_SESSION["ens_id"]);
+                $ens_view->display_notes_info($results);
+            }
+            else {
+                echo "Cet enseignant n'est pas enregistré dans cette école";
+            }
+        }else {
+
+            $ens_details = $ens_model->fetchTeacherById($_SESSION["ens_id"])->fetch();
+            $ens_matieres = $ens_model->fetchEnseignantMatieres($_SESSION["ens_id"]);
+            $ens_view->display_ens_details($ens_details, $ens_matieres);
+
+            $results = $ens_model->fetchStudentsOfTeacher($_SESSION["ens_id"]);
+            $ens_view->display_student_details($results);
+
+            $results = $ens_model->fetchEnseignantEleveNotes($_SESSION["ens_id"]);
+            $ens_view->display_notes_info($results);
 
         }
         $main_controller->FooterMenuController();
@@ -564,6 +638,14 @@ class MainController
         $classes = $classe_model->fetchClasses();
         $parents = $parent_model->fetchParents();
         $gestion_admin->display_modify_eleve_form($students,$classes,$parents);
+
+        $gestion_admin->display_add_parent_form();
+
+        $parents = $parent_model->fetchParents();
+        $gestion_admin->display_delete_parent_form($parents);
+
+        $parents = $parent_model->fetchParents();
+        $gestion_admin->display_modify_parent_form($parents);
 
         $main_controller->FooterMenuController();
     }

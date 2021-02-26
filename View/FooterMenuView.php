@@ -27,6 +27,7 @@ class FooterMenuView
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="userRouter.php?userIs=eleve">Eleves</a></li>
                             <li><a class="dropdown-item" href="userRouter.php?userIs=parent">Parent</a></li>
+                            <li><a class="dropdown-item" href="userRouter.php?userIs=enseignant">Enseignant</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

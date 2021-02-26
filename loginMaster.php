@@ -17,6 +17,9 @@
 
     require_once ("Model/StudentModel.php");
     $student_model = new StudentModel();
+
+    require_once ("Model/ParentModel.php");
+    $parent_model = new ParentModel();
 ?>
 
 <?php
@@ -60,6 +63,10 @@
     else if(isset($_POST["modifier_ens"])){
 
         $enseignant_model->modify_enseignant($_POST["modifier_ens"], $_POST["modifier_nom_ens"], $_POST["modifier_prenom_ens"], $_POST["modifier_jour_reception"]." ".$_POST["modifier_heure_reception"]);
+//        if (isset($_SESSION["enseignant_lastname"], $_SESSION["enseignant_firstname"])){
+//            $_SESSION["ensegnant_lastname"] = $_POST["modifier_nom_eleve"];
+//            $_SESSION["enseignant_firstname"] = $_POST["modifier_prennom_eleve"];
+//        }
     }
     else if(isset($_POST["ens"])){
 
@@ -68,6 +75,8 @@
     else if(isset($_POST["modify_admin"])){
 
         $admin_model->modifyAdmin($_POST["modify_admin_username"], $_POST["modify_admin_password"]);
+        $_SESSION["admin_username"]  = $_POST["modify_admin_username"];
+        $_SESSION["admin_password"]  = $_POST["modify_admin_password"];
     }
     else if(isset($_POST["ajouter_nom_eleve"])){
 
@@ -76,10 +85,37 @@
     else if(isset($_POST["supprimer_eleve"])){
 
         $student_model->deleteStudent($_POST["supprimer_eleve"]);
+        if (isset($_SESSION["student_lastname"], $_SESSION["student_firstname"])){
+            unset($_SESSION["student_firstname"], $_SESSION["student_lastname"]);
+        }
     }
     else if(isset($_POST["modifier_nom_eleve"])){
 
         $student_model->modifyStudent($_POST["modifier_eleve"], $_POST["modifier_nom_eleve"],$_POST["modifier_prenom_eleve"],$_POST["modifier_adresse_eleve"],$_POST["modifier_email_eleve"],$_POST["modifier_photo_eleve"],$_POST["modifier_dob_eleve"],$_POST["modifier_annee_eleve"],$_POST["modifier_classe_eleve"],$_POST["modifier_parent_eleve"]);
+        if (isset($_SESSION["student_lastname"], $_SESSION["student_firstname"])){
+            $_SESSION["student_lastname"] = $_POST["modifier_nom_eleve"];
+            $_SESSION["student_firstname"] = $_POST["modifier_prennom_eleve"];
+        }
+    }
+    else if(isset($_POST["ajouter_nom_parent"])){
+
+        $parent_model->addParent($_POST["ajouter_nom_parent"], $_POST["ajouter_prenom_parent"], $_POST["ajouter_adresse_parent"], $_POST["ajouter_tel_parent"], $_POST["ajouter_email_parent"]);
+    }
+    else if(isset($_POST["supprimer_parent"])){
+
+        $parent_model->deleteParent($_POST["supprimer_parent"]);
+        if (isset($_SESSION["parent_firstname"],  $_SESSION["parent_lastname"], $_SESSION["parent_id"])){
+            unset($_SESSION["parent_firstname"], $_SESSION["parent_lastname"], $_SESSION["parent_id"]);
+        }
+    }
+    else if(isset($_POST["modifier_parent"])){
+
+        $parent_model->modifyParent($_POST["modifier_parent"], $_POST["modifier_nom_parent"],$_POST["modifier_prenom_parent"],$_POST["modifier_adresse_parent"],$_POST["modifier_email_parent"], $_POST["modifier_tel_parent"]);
+        if (isset($_SESSION["parent_firstname"], $_SESSION["parent_lastname"], $_SESSION["parent_id"])){
+            $_SESSION["parent_firstname"] = $_POST["modifier_prenom_parent"];
+            $_SESSION["parent_lastname"] = $_POST["modifier_nom_parent"];
+            $_SESSION["parent_id"] = $_POST["modifier_parent"];
+        }
     }
 ?>
 

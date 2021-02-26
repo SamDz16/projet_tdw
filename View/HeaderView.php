@@ -21,7 +21,7 @@ class HeaderView
                     DZ School
                 </a>
                 <?php
-                if(isset($_SESSION["admin_username"])){
+                if(isset($_SESSION["admin_username"], $_SESSION["admin_password"])){
                     if ($_SESSION["admin_username"] === $admin["username_admin"] && $_SESSION["admin_password"] === $admin["password_admin"]){
                         ?>
                         <a href="loginMaster.php" type="button" class="btn btn-success">

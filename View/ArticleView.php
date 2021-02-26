@@ -61,6 +61,10 @@ class ArticleView
                 $categorie = "Parent";
                 $path .= "parents/";
                 break;
+            case "Ens":
+                $categorie = "Enseignant";
+                $path .= "ens/";
+                break;
             default:
                 $categorie = "Multi Utilisateurs";
                 $path .= "parents/";

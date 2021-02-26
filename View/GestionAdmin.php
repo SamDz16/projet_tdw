@@ -346,7 +346,7 @@ class GestionAdmin
                                 ++$i;
                             }
                         ?>
-                    </tr>
+<!--                    </tr>-->
                 </tbody>
             </table>
         </div>
@@ -792,6 +792,131 @@ class GestionAdmin
                     </div>
 
                     <button type="submit" class="btn btn-danger">Modifier Élève</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_add_parent_form()
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Parent: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="nom_parent">Nom Parent:</label>
+                            <input type="text" name="ajouter_nom_parent" class="form-control" id="nom_parent" required>
+                        </div>
+
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="prenom_parent">Prenom Parent:</label>
+                            <input type="text" name="ajouter_prenom_parent" class="form-control" id="prenom_parent" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="adresse_parent">Adresse Parent:</label>
+                            <input type="text" name="ajouter_adresse_parent" class="form-control" id="adresse_parent" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="email_parent">E-mail Parent:</label>
+                            <input type="email" name="ajouter_email_parent" class="form-control" id="email_parent" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="tel_parent">Tel. Parent:</label>
+                            <input type="text" name="ajouter_tel_parent" class="form-control" id="tel_parent" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Ajouter Parent</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_delete_parent_form($parents)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer Parent: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group col">
+                        <label for="remove_parent">Veuillez sélectionner le parent à supprimer:</label>
+                        <select id="remove_parent" name="supprimer_parent" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($parent = $parents->fetch()){
+                                ?>
+                                <option value=<?= (int) $parent["id_parent"]?>><?="Nom Parent: ". $parent["nom_parent"] . " - ". "Prenom Parent: ". $parent["prenom_parent"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Supprimer Parent</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_modify_parent_form($parents)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Parent: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="modify_parent">Veuillez sélectionner le parent à modifier:</label>
+                        <select id="modify_parent" name="modifier_parent" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($parent = $parents->fetch()){
+                                ?>
+                                <option value=<?= (int) $parent["id_parent"]?>><?="ID: ".$parent["id_parent"] . " - " . "Nom Parent: ". $parent["nom_parent"] . " - ". "Prenom Parent: ". $parent["prenom_parent"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_nom_parent">Nom Parent:</label>
+                            <input type="text" name="modifier_nom_parent" class="form-control" id="modify_nom_parent" required>
+                        </div>
+
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_prenom_parent">Prenom Parent:</label>
+                            <input type="text" name="modifier_prenom_parent" class="form-control" id="modify_prenom_parent" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_adresse_parent">Adresse Parent:</label>
+                            <input type="text" name="modifier_adresse_parent" class="form-control" id="modify_adresse_eleve" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_email_parent">E-mail Parent:</label>
+                            <input type="email" name="modifier_email_parent" class="form-control" id="modify_email_parent" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_tel_parent">Tel. Parent:</label>
+                            <input type="text" name="modifier_tel_parent" class="form-control" id="modify_tel_parent" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Modifier Parent</button>
                 </form>
             </div>
         </div>

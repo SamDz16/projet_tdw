@@ -67,4 +67,26 @@ class ParentModel
         return $res;
     }
 
+    public function addParent($nom_parent, $prenom_parent, $adresse_parent, $tel_parent, $email_parent)
+    {
+        $con = $this->connexionToDB();
+        $stmt = $con->prepare("INSERT INTO parent (nom_parent,prenom_parent,adresse_parent,telephone_parent,email_parent) VALUES (:nom, :prenom, :adresse, :tel, :email)");
+        $stmt->execute([':nom' => $nom_parent, ':prenom' => $prenom_parent, ':adresse' => $adresse_parent, ':tel' => $tel_parent, ':email' => $email_parent]);
+        $this->deconnexionFromDB($con);
+    }
+
+    public function deleteParent($parent_id)
+    {
+        $con = $this->connexionToDB();
+        $con->query("DELETE FROM parent WHERE id_parent='$parent_id'");
+        $this->deconnexionFromDB($con);
+    }
+
+    public function modifyParent($parent_id, $nom_parent, $prenom_parent, $adresse_parent,$email_parent, $tel_parent)
+    {
+        $con = $this->connexionToDB();
+        $con->query("UPDATE parent set nom_parent='$nom_parent',prenom_parent='$prenom_parent',adresse_parent='$adresse_parent',email_parent='$email_parent',telephone_parent='$tel_parent' WHERE id_parent='$parent_id'");
+        $this->deconnexionFromDB($con);
+    }
+
 }
