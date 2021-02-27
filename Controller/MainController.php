@@ -467,6 +467,16 @@ class MainController
 
                 $results = $ens_model->fetchEnseignantEleveNotes($_SESSION["ens_id"]);
                 $ens_view->display_notes_info($results);
+
+                $ens_classes = $ens_model->fetchEnseignantClasses($_SESSION["ens_id"]);
+                $ens_view->display_gestion_ajout_notes_eleves_form($ens_classes);
+
+                $ens_classes = $ens_model->fetchEnseignantClasses($_SESSION["ens_id"]);
+                $ens_view->display_gestion_delete_notes_eleves_form($ens_classes);
+
+                $ens_classes = $ens_model->fetchEnseignantClasses($_SESSION["ens_id"]);
+                $ens_view->display_gestion_modify_notes_eleves_form($ens_classes);
+
             }
             else {
                 echo "Cet enseignant n'est pas enregistré dans cette école";
@@ -482,6 +492,15 @@ class MainController
 
             $results = $ens_model->fetchEnseignantEleveNotes($_SESSION["ens_id"]);
             $ens_view->display_notes_info($results);
+
+            $ens_classes = $ens_model->fetchEnseignantClasses($_SESSION["ens_id"]);
+            $ens_view->display_gestion_ajout_notes_eleves_form($ens_classes);
+
+            $ens_classes = $ens_model->fetchEnseignantClasses($_SESSION["ens_id"]);
+            $ens_view->display_gestion_delete_notes_eleves_form($ens_classes);
+
+            $ens_classes = $ens_model->fetchEnseignantClasses($_SESSION["ens_id"]);
+            $ens_view->display_gestion_modify_notes_eleves_form($ens_classes);
 
         }
         $main_controller->FooterMenuController();

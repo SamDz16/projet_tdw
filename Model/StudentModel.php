@@ -72,4 +72,14 @@ class StudentModel
         $con->query("UPDATE eleve set nom_eleve='$nom_eleve',prenom_eleve='$prenom_eleve',adresse_eleve='$adresse_eleve',email_eleve='$email_eleve',photo_eleve='$photo_eleve',date_naissance_eleve='$date_naissance_eleve',annee_eleve='$annee_eleve',id_classe='$classe_eleve',id_parent='$parent_eleve' WHERE id_eleve='$eleve_id'");
         $this->deconnexionFromDB($con);
     }
+
+    public function fetchStudentsByClasse($class_id)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM eleve WHERE id_classe='$class_id'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
+
 }

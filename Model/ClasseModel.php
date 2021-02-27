@@ -26,4 +26,12 @@ class ClasseModel
         $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function fetchEnseignantClassNatieres($class_id, $teacher_id)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM matiere WHERE id_classe='$class_id' AND id_enseignant='$teacher_id'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
 }

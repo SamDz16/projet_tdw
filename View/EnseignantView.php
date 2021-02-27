@@ -20,10 +20,11 @@
         border-radius: 10px;
     }
 
-    #students{
+    #students,
+    #ens-classes{
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        grid-gap: 10px;
+        grid-gap: 40px;
         margin: 40px 0;
     }
 </style>
@@ -192,4 +193,198 @@ class EnseignantView
         </div>
         <?php
     }
+
+    public function display_gestion_ajout_notes_eleves_form($ens_classes)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Gestion des notes par <?= $_SESSION["ens_firstname"] . " " . $_SESSION["ens_lastname"]?> - Ajout</h3>
+            <div id="ens-classes" style="padding: 10px;">
+                <?php
+                while($ens_classe  = $ens_classes->fetch()){
+                    ?>
+                    <div>
+                        <form method="post" action="enseignantLoginMaster.php" enctype="multipart/form-data">
+                            <h5>Classe: <?=$ens_classe["nom_classe"]?></h5>
+                            <?php
+                            require_once ("Model/StudentModel.php");
+                            $student_model = new StudentModel();
+                            $class_students = $student_model->fetchStudentsByClasse((int) $ens_classe["id_classe"]);
+                            ?>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="gestion_id_eleve">Veuillez sélectionner l'élève:</label>
+                                    <select id="gestion_id_eleve" name="ajout_gestion_id_eleve" class="form-select" aria-label="Default select example">
+                                        <?php
+                                        while($class_student = $class_students->fetch()){
+                                            ?>
+                                            <option value=<?= (int) $class_student["id_eleve"]?>><?="Nom élève: ". $class_student["nom_eleve"] . " - ". "Prenom élève: ". $class_student["prenom_eleve"]?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <?php
+                                    require_once ("Model/ClasseModel.php");
+                                    $class_model = new ClasseModel();
+                                    $class_matieres = $class_model->fetchEnseignantClassNatieres((int) $ens_classe["id_classe"], $_SESSION["ens_id"]);
+                                    ?>
+                                    <label for="gestion_matiere_eleve">Veuillez sélectionner la matière:</label>
+                                    <select id="gestion_matiere_eleve" name="ajout_gestion_nom_matiere" class="form-select" aria-label="Default select example">
+                                        <?php
+                                        while($class_matiere = $class_matieres->fetch()){
+                                            ?>
+                                            <option value=<?= $class_matiere["nom_matiere"]?>><?="Nom Matière: ". $class_matiere["nom_matiere"] . " - ". "Cycle Matière: ". $class_matiere["nom_cycle"]?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <label for="class_student">Veuillez entrer la note de cet élève:</label>
+                                    <input name="ajout_gestion_note_eleve" type="text" class="form-control" id="class_student" aria-describedby="textHelp">
+                                </div>
+                            </div>
+
+                            <button style="margin-top: 20px;" type="submit" class="btn btn-primary">Ajouter Note</button>
+                        </form>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_gestion_delete_notes_eleves_form($ens_classes)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Gestion des notes par <?= $_SESSION["ens_firstname"] . " " . $_SESSION["ens_lastname"]?> - Suppression</h3>
+            <div id="ens-classes" style="padding: 10px;">
+                <?php
+                while($ens_classe  = $ens_classes->fetch()){
+                    ?>
+                    <div>
+                        <form method="post" action="enseignantLoginMaster.php" enctype="multipart/form-data">
+                            <h5>Classe: <?=$ens_classe["nom_classe"]?></h5>
+                            <?php
+                            require_once ("Model/StudentModel.php");
+                            $student_model = new StudentModel();
+                            $class_students = $student_model->fetchStudentsByClasse((int) $ens_classe["id_classe"]);
+                            ?>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="gestion_supp_id_eleve">Veuillez sélectionner l'élève:</label>
+                                    <select id="gestion_supp_id_eleve" name="supprimer_gestion_id_eleve" class="form-select" aria-label="Default select example">
+                                        <?php
+                                        while($class_student = $class_students->fetch()){
+                                            ?>
+                                            <option value=<?= (int) $class_student["id_eleve"]?>><?="Nom élève: ". $class_student["nom_eleve"] . " - ". "Prenom élève: ". $class_student["prenom_eleve"]?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <?php
+                                    require_once ("Model/ClasseModel.php");
+                                    $class_model = new ClasseModel();
+                                    $class_matieres = $class_model->fetchEnseignantClassNatieres((int) $ens_classe["id_classe"], $_SESSION["ens_id"]);
+                                    ?>
+                                    <label for="gestion_supp__matiere_eleve">Veuillez sélectionner la matière:</label>
+                                    <select id="gestion_supp__matiere_eleve" name="supprimer_gestion_nom_matiere" class="form-select" aria-label="Default select example">
+                                        <?php
+                                        while($class_matiere = $class_matieres->fetch()){
+                                            ?>
+                                            <option value=<?= $class_matiere["nom_matiere"]?>><?="Nom Matière: ". $class_matiere["nom_matiere"] . " - ". "Cycle Matière: ". $class_matiere["nom_cycle"]?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+<!--                                <div class="form-group col">-->
+<!--                                    <label for="class_student">Veuillez entrer la note de cet élève:</label>-->
+<!--                                    <input name="ajout_gestion_note_eleve" type="text" class="form-control" id="class_student" aria-describedby="textHelp">-->
+<!--                                </div>-->
+                            </div>
+
+                            <button style="margin-top: 20px;" type="submit" class="btn btn-danger">Supprimer Note</button>
+                        </form>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_gestion_modify_notes_eleves_form($ens_classes)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Gestion des notes par <?= $_SESSION["ens_firstname"] . " " . $_SESSION["ens_lastname"]?> - Modification</h3>
+            <div id="ens-classes" style="padding: 10px;">
+                <?php
+                while($ens_classe  = $ens_classes->fetch()){
+                    ?>
+                    <div>
+                        <form method="post" action="enseignantLoginMaster.php" enctype="multipart/form-data">
+                            <h5>Classe: <?=$ens_classe["nom_classe"]?></h5>
+                            <?php
+                            require_once ("Model/StudentModel.php");
+                            $student_model = new StudentModel();
+                            $class_students = $student_model->fetchStudentsByClasse((int) $ens_classe["id_classe"]);
+                            ?>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="gestion_modif_id_eleve">Veuillez sélectionner l'élève:</label>
+                                    <select id="gestion_modif_id_eleve" name="modifier_gestion_id_eleve" class="form-select" aria-label="Default select example">
+                                        <?php
+                                        while($class_student = $class_students->fetch()){
+                                            ?>
+                                            <option value=<?= (int) $class_student["id_eleve"]?>><?="Nom élève: ". $class_student["nom_eleve"] . " - ". "Prenom élève: ". $class_student["prenom_eleve"]?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <?php
+                                    require_once ("Model/ClasseModel.php");
+                                    $class_model = new ClasseModel();
+                                    $class_matieres = $class_model->fetchEnseignantClassNatieres((int) $ens_classe["id_classe"], $_SESSION["ens_id"]);
+                                    ?>
+                                    <label for="gestion_modif_matiere_eleve">Veuillez sélectionner la matière:</label>
+                                    <select id="gestion_modif_matiere_eleve" name="modifier_gestion_nom_matiere" class="form-select" aria-label="Default select example">
+                                        <?php
+                                        while($class_matiere = $class_matieres->fetch()){
+                                            ?>
+                                            <option value=<?= $class_matiere["nom_matiere"]?>><?="Nom Matière: ". $class_matiere["nom_matiere"] . " - ". "Cycle Matière: ". $class_matiere["nom_cycle"]?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <label for="estion_modif_note_eleve">Veuillez entrer la note de cet élève:</label>
+                                    <input name="modifier_gestion_note_eleve" type="text" class="form-control" id="estion_modif_note_eleve" aria-describedby="textHelp">
+                                </div>
+                            </div>
+
+                            <button style="margin-top: 20px;" type="submit" class="btn btn-danger">Modifier Note</button>
+                        </form>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        <?php
+    }
+
+
 }

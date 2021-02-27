@@ -63,10 +63,11 @@
     else if(isset($_POST["modifier_ens"])){
 
         $enseignant_model->modify_enseignant($_POST["modifier_ens"], $_POST["modifier_nom_ens"], $_POST["modifier_prenom_ens"], $_POST["modifier_jour_reception"]." ".$_POST["modifier_heure_reception"]);
-//        if (isset($_SESSION["enseignant_lastname"], $_SESSION["enseignant_firstname"])){
-//            $_SESSION["ensegnant_lastname"] = $_POST["modifier_nom_eleve"];
-//            $_SESSION["enseignant_firstname"] = $_POST["modifier_prennom_eleve"];
-//        }
+        if (isset($_SESSION["ens_firstname"], $_SESSION["ens_lastname"], $_SESSION["ens_id"])){
+            $_SESSION["ens_id"] = $_POST["modifier_ens"];
+            $_SESSION["ens_lastname"] = $_POST["modifier_nom_ens"];
+            $_SESSION["ens_firstname"] = $_POST["modifier_prennom_ens"];
+        }
     }
     else if(isset($_POST["ens"])){
 
