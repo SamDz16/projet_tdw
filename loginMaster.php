@@ -20,6 +20,9 @@
 
     require_once ("Model/ParentModel.php");
     $parent_model = new ParentModel();
+
+    require_once ("Model/RestaurationModel.php");
+    $restauration_model = new RestaurationModel();
 ?>
 
 <?php
@@ -117,6 +120,18 @@
             $_SESSION["parent_lastname"] = $_POST["modifier_nom_parent"];
             $_SESSION["parent_id"] = $_POST["modifier_parent"];
         }
+    }
+    else if(isset($_POST["ajout_gestion_jour_restauration"])){
+
+        $restauration_model->addRepas($_POST["ajout_gestion_jour_restauration"], $_POST["ajout_gestion_date_restauration"], $_POST["ajout_gestion_repas_restauration"]);
+    }
+    else if(isset($_POST["supprimer_gestion_jour_restauration"])){
+
+        $restauration_model->deleteRepas($_POST["supprimer_gestion_jour_restauration"]);
+    }
+    else if(isset($_POST["modifier_gestion_jour_restauration"])){
+
+        $restauration_model->modifyRepas($_POST["modifier_gestion_jour_restauration"], $_POST["modifier_gestion_date_restauration"], $_POST["modifier_gestion_repas_restauration"]);
     }
 ?>
 

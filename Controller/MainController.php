@@ -674,4 +674,29 @@ class MainController
 
         $main_controller->FooterMenuController();
     }
+
+    public function GestionRestauration()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        require_once ("View/RestaurationView.php");
+        $restauration_view = new RestaurationView();
+
+        require_once ("Model/RestaurationModel.php");
+        $restauration_model = new RestaurationModel();
+
+        $main_controller->HeaderController();
+
+        $dishes = $restauration_model->fetchDishes();
+        $restauration_view->display_restauration_menu($dishes);
+
+        $restauration_view->display_ajouter_restauration_form();
+
+        $restauration_view->display_delete_restauration_form();
+
+        $restauration_view->display_modify_restauration_form();
+
+        $main_controller->FooterMenuController();
+    }
 }

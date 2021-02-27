@@ -39,7 +39,8 @@ $admin = $admin_model->admin_login();
                     break;
 
                 case "restauration":
-
+                    $main_controller->GestionRestauration();
+                    break;
                 case "contact":
 
                 case "diaporama":
