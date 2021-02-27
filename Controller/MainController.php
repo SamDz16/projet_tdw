@@ -357,6 +357,7 @@ class MainController
 
             if($student){
                 // Means student exists in database
+                $_SESSION["student_id"] = $student["id_eleve"];
                 $_SESSION["student_firstname"] = $student["prenom_eleve"];
                 $_SESSION["student_lastname"] = $student["nom_eleve"];
 
@@ -365,6 +366,10 @@ class MainController
                 $student_articles = $student_articles->fetchCycleArticles("E");
 
                 $student_details_view->display_student_details($student_details, $student_activities);
+
+                $student_notes = $student_model->fetchStudentNotes($_SESSION["student_id"]);
+                $student_articles_view->display_notes_info($student_notes);
+
                 $student_articles_view->display_student_articles_view($student_articles);
             }
             else {
@@ -376,6 +381,10 @@ class MainController
             $student_articles = $student_articles->fetchCycleArticles("E");
 
             $student_details_view->display_student_details($student_details, $student_activities);
+
+            $student_notes = $student_model->fetchStudentNotes($_SESSION["student_id"]);
+            $student_articles_view->display_notes_info($student_notes);
+
             $student_articles_view->display_student_articles_view($student_articles);
         }
         $main_controller->FooterMenuController();

@@ -81,5 +81,12 @@ class StudentModel
         return $res;
     }
 
+    public function fetchStudentNotes($student_id)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT nom_eleve,prenom_eleve,email_eleve,nom_matiere,note,classe.nom_classe,classe.id_EDT,classe.nom_cycle FROM note INNER JOIN eleve ON note.id_eleve=eleve.id_eleve INNER JOIN classe on eleve.id_classe=classe.id_classe WHERE eleve.id_eleve='$student_id'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
 
 }

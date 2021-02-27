@@ -3,7 +3,7 @@
 
 if(isset($_GET["userIs"])){
     if ($_GET["userIs"] === "eleve"){
-        unset($_SESSION["student_firstname"], $_SESSION["student_lastname"]);
+        unset($_SESSION["student_id"], $_SESSION["student_firstname"], $_SESSION["student_lastname"]);
         header("Location: http://". $_SERVER['HTTP_HOST']. "/PROJECT_TDW/index.php");
 
     }else if ($_GET["userIs"] === "admin"){

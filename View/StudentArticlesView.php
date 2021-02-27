@@ -23,6 +23,52 @@
 
 class StudentArticlesView
 {
+    public function display_notes_info($student_notes)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Liste de vos notes: </h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom Élève</th>
+                    <th scope="col">Prenom Élève</th>
+                    <th scope="col">e-Mail</th>
+                    <th scope="col">Classe</th>
+                    <th scope="col">Cycle</th>
+                    <th scope="col">EDT</th>
+                    <th scope="col">Matière</th>
+                    <th scope="col">Note</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <?php
+                    $i = 1;
+                    while($student_note = $student_notes->fetch()){
+                    ?>
+                <tr>
+                    <th scope="row"><?=$i?></th>
+                    <td><?=$student_note["nom_eleve"]?></td>
+                    <td><?=$student_note["prenom_eleve"]?></td>
+                    <td><?=$student_note["email_eleve"]?></td>
+                    <td><?=$student_note["nom_classe"]?></td>
+                    <td><?=$student_note["nom_cycle"]?></td>
+                    <td><?=$student_note["id_EDT"]?></td>
+                    <td><?=$student_note["nom_matiere"]?></td>
+                    <td><?=$student_note["note"]?></td>
+                </tr>
+                <?php
+                ++$i;
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
+    }
+
     public function display_student_articles_view($student_articles)
     {
         ?>
