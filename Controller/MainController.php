@@ -419,12 +419,11 @@ class MainController
                 $_SESSION["parent_lastname"] = $parent["nom_parent"];
                 $_SESSION["parent_id"] = $parent["id_parent"];
 
-                $parent_sons = $parent_model->fetchParentSons($parent["id_parent"]);
-                $parent_sons_notes = $parent_model->fetchNotes($parent["id_parent"]);
-                $parent_sons_remarques_ens = $parent_model->fetchRemarquesEnseignant($parent["id_parent"]);
-                $parent_sons_activities = $parent_model->fetchActivities($parent["id_parent"]);
+                $parent_sons = $parent_model->fetchParentSons($_SESSION["parent_id"]);
+                $parent_view->display_parent_sons_detail($parent_sons);
 
-                $parent_view->display_parent_sons_detail($parent_sons, $parent_sons_notes, $parent_sons_remarques_ens, $parent_sons_activities);
+                $parent_sons = $parent_model->fetchParentSons($_SESSION["parent_id"]);
+                $parent_view->display_notes_info($parent_sons);
 
             }
             else {
@@ -432,12 +431,10 @@ class MainController
             }
         }else {
             $parent_sons = $parent_model->fetchParentSons($_SESSION["parent_id"]);
-            $parent_sons_notes = $parent_model->fetchNotes($_SESSION["parent_id"]);
-            $parent_sons_remarques_ens = $parent_model->fetchRemarquesEnseignant($_SESSION["parent_id"]);
-            $parent_sons_activities = $parent_model->fetchActivities($_SESSION["parent_id"]);
+            $parent_view->display_parent_sons_detail($parent_sons);
 
-            $parent_view->display_parent_sons_detail($parent_sons, $parent_sons_notes, $parent_sons_remarques_ens, $parent_sons_activities);
-
+            $parent_sons = $parent_model->fetchParentSons($_SESSION["parent_id"]);
+            $parent_view->display_notes_info($parent_sons);
         }
         $main_controller->FooterMenuController();
     }

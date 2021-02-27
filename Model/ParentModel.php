@@ -38,31 +38,31 @@ class ParentModel
     public function fetchParentSons($parent_id)
     {
         $con = $this->connexionToDB();
-        $res = $con->query("SELECT nom_eleve,prenom_eleve,photo_eleve,date_naissance_eleve,annee_eleve,nom_classe,edt.id_EDT,nom_parent,prenom_parent FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN classe ON eleve.id_classe=classe.id_classe INNER JOIN edt ON classe.id_EDT=edt.id_EDT WHERE parent.id_parent='$parent_id'");
+        $res = $con->query("SELECT id_eleve,nom_eleve,prenom_eleve,photo_eleve,date_naissance_eleve,annee_eleve,nom_classe,edt.id_EDT,nom_parent,prenom_parent FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN classe ON eleve.id_classe=classe.id_classe INNER JOIN edt ON classe.id_EDT=edt.id_EDT WHERE parent.id_parent='$parent_id'");
         $this->deconnexionFromDB($con);
         return $res;
     }
 
-    public function fetchNotes($parent_id)
+    public function fetchNotes($parent_id, $student_id)
     {
         $con = $this->connexionToDB();
-        $res = $con->query("SELECT nom_eleve,prenom_eleve,note,note.nom_matiere FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN note ON note.id_eleve=eleve.id_eleve WHERE parent.id_parent='$parent_id'");
+        $res = $con->query("SELECT nom_eleve,prenom_eleve,email_eleve,adresse_eleve,note,note.nom_matiere FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN note ON note.id_eleve=eleve.id_eleve WHERE parent.id_parent='$parent_id' AND eleve.id_eleve='$student_id'");
         $this->deconnexionFromDB($con);
         return $res;
     }
 
-    public function fetchRemarquesEnseignant($parent_id)
+    public function fetchRemarquesEnseignant($parent_id, $student_id)
     {
         $con = $this->connexionToDB();
-        $res = $con->query("SELECT nom_eleve,prenom_eleve,remarque,nom_enseignant,prenom_enseignant,heure_reception_enseignant FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN remarque_enseignant ON remarque_enseignant.id_eleve=eleve.id_eleve INNER JOIN enseignant ON remarque_enseignant.id_enseignant=enseignant.id_enseignant WHERE parent.id_parent='$parent_id'");
+        $res = $con->query("SELECT nom_eleve,prenom_eleve,remarque,nom_enseignant,prenom_enseignant,heure_reception_enseignant FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN remarque_enseignant ON remarque_enseignant.id_eleve=eleve.id_eleve INNER JOIN enseignant ON remarque_enseignant.id_enseignant=enseignant.id_enseignant WHERE parent.id_parent='$parent_id' AND eleve.id_eleve='$student_id'");
         $this->deconnexionFromDB($con);
         return $res;
     }
 
-    public function fetchActivities($parent_id)
+    public function fetchActivities($parent_id, $student_id)
     {
         $con = $this->connexionToDB();
-        $res = $con->query("SELECT nom_eleve,prenom_eleve,nom_activite FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN participation ON participation.id_eleve=eleve.id_eleve INNER JOIN activite_extrascolaire ON activite_extrascolaire.id_activite=participation.id_activite  WHERE parent.id_parent='$parent_id'");
+        $res = $con->query("SELECT nom_eleve,prenom_eleve,nom_activite FROM eleve INNER JOIN parent ON eleve.id_parent=parent.id_parent INNER JOIN participation ON participation.id_eleve=eleve.id_eleve INNER JOIN activite_extrascolaire ON activite_extrascolaire.id_activite=participation.id_activite  WHERE parent.id_parent='$parent_id' AND eleve.id_eleve='$student_id'");
         $this->deconnexionFromDB($con);
         return $res;
     }

@@ -48,13 +48,20 @@ class ParentView
     <?php
     }
 
-    public function display_parent_sons_detail($parent_sons, $parent_sons_notes, $parent_sons_remarques_ens, $parent_sons_activities)
+    public function display_parent_sons_detail($parent_sons)
     {
+        require_once ("Model/ParentModel.php");
+        $parent_model = new ParentModel();
         ?>
         <div>
             <h3 style="margin-bottom: 20px;">Informations sur les enfants de <?=$_SESSION["parent_firstname"]?> <?=$_SESSION["parent_lastname"]?></h3>
             <?php
+
             while($parent_son = $parent_sons->fetch()){
+
+                $parent_sons_notes = $parent_model->fetchNotes($_SESSION["parent_id"], $parent_son["id_eleve"]);
+                $parent_sons_remarques_ens = $parent_model->fetchRemarquesEnseignant($_SESSION["parent_id"], $parent_son["id_eleve"]);
+                $parent_sons_activities = $parent_model->fetchActivities($_SESSION["parent_id"], $parent_son["id_eleve"]);
                 ?>
                 <div>
                     <h5 style="margin-bottom: 20px;">Informations sur <?=$parent_son["nom_eleve"]?> <?=$parent_son["prenom_eleve"]?></h5>
@@ -97,7 +104,7 @@ class ParentView
                                     <?php
                                     while($parent_sons_remarque = $parent_sons_remarques_ens->fetch()){
                                         ?>
-                                        <li class="list-group-item">( Enseignant ,Remarque ) :<?=" ( ". $parent_sons_remarque["nom_enseignant"]. " ".$parent_sons_remarque["prenom_enseignant"] . " ,". $parent_sons_remarque["remarque"] ." )"?></li>
+                                        <li class="list-group-item">( Enseignant ,Remarque ) :<?=" ( ". $parent_sons_remarque["nom_enseignant"]. " ".$parent_sons_remarque["prenom_enseignant"] . " : \"". $parent_sons_remarque["remarque"] ."\" )"?></li>
                                         <?php
                                     }
                                     ?>
@@ -132,4 +139,58 @@ class ParentView
         <!--            <a style="color: #fff; margin: 0 0 20px 0;" href="index.php" class="btn btn-secondary">Deconnexion</a>-->
         <?php
     }
+
+    public function display_notes_info($parent_sons)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+           <?php
+           require_once ("Model/ParentModel.php");
+           $parent_model = new ParentModel();
+           while($parent_son = $parent_sons->fetch()){
+               $son_notes = $parent_model->fetchNotes($_SESSION["parent_id"], $parent_son["id_eleve"])
+               ?>
+                <div>
+                    <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Liste des notes de : <?=$parent_son["nom_eleve"] . " " . $parent_son["prenom_eleve"]?> </h3>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom Élève</th>
+                            <th scope="col">Prenom Élève</th>
+                            <th scope="col">e-Mail</th>
+                            <th scope="col">Adresse</th>
+                            <th scope="col">Matière</th>
+                            <th scope="col">Note</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <?php
+                            $i = 1;
+                            while($son_note = $son_notes->fetch()){
+                            ?>
+                        <tr>
+                            <th scope="row"><?=$i?></th>
+                            <td><?=$son_note["nom_eleve"]?></td>
+                            <td><?=$son_note["prenom_eleve"]?></td>
+                            <td><?=$son_note["email_eleve"]?></td>
+                            <td><?=$son_note["adresse_eleve"]?></td>
+                            <td><?=$son_note["nom_matiere"]?></td>
+                            <td><?=$son_note["note"]?></td>
+                        </tr>
+                        <?php
+                        ++$i;
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+               <?php
+           }
+           ?>
+        </div>
+        <?php
+    }
+
 }
