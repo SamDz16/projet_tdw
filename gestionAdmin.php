@@ -28,7 +28,9 @@ $admin = $admin_model->admin_login();
                     $main_controller->GestionPresentationEcole();
                     break;
 
-                case "emploi_du_temps":
+                case "emplois_du_temps":
+                    $main_controller->GestionEDT();
+                    break;
 
                 case "enseignant":
                     $main_controller->GestionEnseignant();

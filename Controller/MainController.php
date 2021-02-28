@@ -723,11 +723,32 @@ class MainController
 
         $contacts = $contact_model->fetchContactDetails();
         $contact_view->display_modify_contact_form($contacts);
-//
-//        $icons = $contact_model->fetchIcons();
-//        $contact_details = $contact_model->fetchContactDetails();
-//        $contact_view->display_contact_page($contact_details, $icons);
-//
-//        $main_controller->FooterMenuController();
+
+        $main_controller->FooterMenuController();
+    }
+
+    public function GestionEDT()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
+        require_once ("Model/EDTModel.php");
+        $edt_model = new EDTModel();
+
+        require_once ("Model/ClasseModel.php");
+        $classe_model = new ClasseModel();
+
+        require_once ("View/GestionAdmin.php");
+        $edt_view = new GestionAdmin();
+
+        $id_edts = $edt_model->fetchIdEDTs();
+        $edt_view->display_edt_info($id_edts);
+
+        $classes = $classe_model->fetchClasses();
+        $edt_view->display_add_emploi_du_temps_form($classes);
+
+        $main_controller->FooterMenuController();
     }
 }

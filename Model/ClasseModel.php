@@ -34,4 +34,12 @@ class ClasseModel
         $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function fetchMatieresClasse($classe_id)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM matiere WHERE id_classe='$classe_id'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
 }

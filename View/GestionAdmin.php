@@ -3,6 +3,23 @@
         margin: 10px 0;
     }
 </style>
+
+<script>
+    function getClasse(){
+        const classe = $("#add_edt").val();
+        $.ajax({
+            url: "ajax.php",
+            data: {classe},
+            type: "GET",
+            success: (matieres) => {
+               $("#classe").html(matieres);
+            },
+            error: (e) => {
+                console.log(e);
+            }
+        })
+    }
+</script>
 <?php
 
 
@@ -923,4 +940,139 @@ class GestionAdmin
         <?php
     }
 
+    public function display_edt_info($id_edts)
+    {
+        ?>
+        <div>
+            <?php
+            while($id_edt = $id_edts->fetch())
+            {
+                require_once ("Model/EDTModel.php");
+                $edt_model = new EDTModel();
+
+                $edt = $edt_model->fetchEDT((int) $id_edt["id_EDT"])->fetch();
+                if($edt){
+                    ?>
+                    <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+                        <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">L'emploi du temps associe a la classe: <b><?=$edt["nom_classe"]?></b></h3>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Dimanche</th>
+                                <th scope="col">Lundi</th>
+                                <th scope="col">Mardi</th>
+                                <th scope="col">Mercredi</th>
+                                <th scope="col">Jeudi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $heures = ["8:00-9:00", "9:00-10:00", "10:00-11:00", "11:00-12:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00"];
+                                    foreach($heures as $heure){
+                                        $heure_debut = explode("-", $heure)[0];
+                                        $heure_fin = explode("-", $heure)[1];
+
+                                        $result = $edt_model->fetchLignesEDTHeure((int) $id_edt["id_EDT"], $heure_debut, $heure_fin);
+                                        $edt_lignes = $result->fetchAll();
+
+                                        $d = $l =$ma = $me = $j = 0;
+                                        ?>
+                                            <tr>
+                                                <th scope="row"><?=$heure?></th>
+
+                                                <?php
+                                                    foreach ($edt_lignes as $edt_ligne){
+
+                                                        if($edt_ligne["jour_seance"] === "Dimanche"){
+                                                            echo "<td>". $edt_ligne["nom_matiere"] . "</td>";
+                                                            $d= 1;
+                                                        }
+                                                        else {
+                                                            if ($d !== 1) {
+                                                                echo "<td>/</td>";
+                                                                $d = 1;
+                                                            }
+                                                            if($edt_ligne["jour_seance"] === "Lundi"){
+                                                                echo "<td>". $edt_ligne["nom_matiere"] . "</td>";
+                                                                $l = 1;
+                                                            }
+                                                            else {
+                                                                if ($l !== 1) {
+                                                                    echo "<td>/</td>";
+                                                                    $l = 1;
+                                                                }
+                                                                if ($edt_ligne["jour_seance"] === "Mardi") {
+                                                                    echo "<td>" . $edt_ligne["nom_matiere"] . "</td>";
+                                                                    $ma = 1;
+                                                                } else {
+                                                                    if ($ma !== 1) {
+                                                                        echo "<td>/</td>";
+                                                                        $ma = 1;
+                                                                    }
+                                                                    if ($edt_ligne["jour_seance"] === "Mercredi") {
+                                                                        echo "<td>" . $edt_ligne["nom_matiere"] . "</td>";
+                                                                        $me = 1;
+                                                                    }
+                                                                    else {
+                                                                        if ($me !== 1) {
+                                                                            echo "<td>/</td>";
+                                                                            $me = 1;
+                                                                        }
+                                                                        if ($edt_ligne["jour_seance"] === "Jeudi") {
+                                                                            echo "<td>" . $edt_ligne["nom_matiere"] . "</td>";
+                                                                            $j = 1;
+                                                                        } else if ($j !== 1) {
+                                                                            echo "<td>n</td>";
+                                                                            $j = 1;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                $d = $l = $ma = $me =$j = 0;
+                                                ?>
+                                            </tr>
+                                        <?php
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php
+                }
+                ?>
+                <?php
+            }
+            ?>
+        </div>
+        <?php
+    }
+
+    public function display_add_emploi_du_temps_form($classes)
+    {
+        ?>
+            <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+                <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Emploi du Temps: </h3>
+                <div style="padding: 10px;">
+                    <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+                        <div class="form-group col">
+                            <label for="add_edt">Veuillez sélectionner la classe:</label>
+                            <select onchange="getClasse();" id="add_edt" name="add_edt" class="form-select" aria-label="Default select example">
+                                <?php
+                                while($classe = $classes->fetch()){
+                                    ?>
+                                    <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"]?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div id="classe"></div>
+                    </form>
+                </div>
+            </div>
+        <?php
+    }
 }

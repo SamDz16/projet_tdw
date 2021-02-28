@@ -169,7 +169,7 @@ class EnseignantView
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+<!--                    <tr>-->
                         <?php
                         $i = 1;
                         while($student_detail = $student_details->fetch()){
@@ -385,6 +385,4 @@ class EnseignantView
         </div>
         <?php
     }
-
-
 }

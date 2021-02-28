@@ -26,6 +26,9 @@
 
     require_once ("Model/ContactModel.php");
     $contact_model = new ContactModel();
+
+    require_once ("Model/EDTModel.php");
+    $edt_model = new EDTModel();
 ?>
 
 <?php
@@ -147,6 +150,10 @@
     else if(isset($_POST["modifier_gestion_contact"])){
 
         $contact_model->modifyContact($_POST["modifier_gestion_contact"], $_POST["modifier_titre_gestion_contact"],$_POST["modifier_text_gestion_contact"],$_POST["modifier_image_gestion_contact"]);
+    }
+    else if(isset($_POST["add_edt"])){
+
+//        $edt_model->addMatiere($_POST["modifier_gestion_contact"], $_POST["modifier_titre_gestion_contact"],$_POST["modifier_text_gestion_contact"],$_POST["modifier_image_gestion_contact"]);
     }
 ?>
 
