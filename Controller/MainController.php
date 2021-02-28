@@ -1,13 +1,3 @@
-<style>
-    /*#images{*/
-    /*    display: grid;*/
-    /*    grid-template-columns: repeat(2, 1fr);*/
-    /*    grid-gap: 20px;*/
-    /*}*/
-    /*#images .img{*/
-    /*    width: 450px;*/
-    /*}*/
-</style>
 <?php
 
 class MainController
@@ -523,9 +513,22 @@ class MainController
 
     public function ContactController()
     {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
         require_once ("View/ContactView.php");
         $contact_view = new ContactView();
-        $contact_view->display_contact_page();
+
+        require_once ("Model/ContactModel.php");
+        $contact_model = new ContactModel();
+
+        $icons = $contact_model->fetchIcons();
+        $contact_details = $contact_model->fetchContactDetails();
+        $contact_view->display_contact_page($contact_details, $icons);
+
+        $main_controller->FooterMenuController();
     }
 
     public function PaginationController()
@@ -698,5 +701,33 @@ class MainController
         $restauration_view->display_modify_restauration_form();
 
         $main_controller->FooterMenuController();
+    }
+
+    public function GestionContact()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
+        require_once ("View/ContactView.php");
+        $contact_view = new ContactView();
+
+        require_once ("Model/ContactModel.php");
+        $contact_model = new ContactModel();
+
+        $contact_view->display_add_contact_form();
+
+        $contacts = $contact_model->fetchContactDetails();
+        $contact_view->display_delete_contact_form($contacts);
+
+        $contacts = $contact_model->fetchContactDetails();
+        $contact_view->display_modify_contact_form($contacts);
+//
+//        $icons = $contact_model->fetchIcons();
+//        $contact_details = $contact_model->fetchContactDetails();
+//        $contact_view->display_contact_page($contact_details, $icons);
+//
+//        $main_controller->FooterMenuController();
     }
 }

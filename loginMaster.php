@@ -23,6 +23,9 @@
 
     require_once ("Model/RestaurationModel.php");
     $restauration_model = new RestaurationModel();
+
+    require_once ("Model/ContactModel.php");
+    $contact_model = new ContactModel();
 ?>
 
 <?php
@@ -132,6 +135,18 @@
     else if(isset($_POST["modifier_gestion_jour_restauration"])){
 
         $restauration_model->modifyRepas($_POST["modifier_gestion_jour_restauration"], $_POST["modifier_gestion_date_restauration"], $_POST["modifier_gestion_repas_restauration"]);
+    }
+    else if(isset($_POST["ajouter_titre_gestion_contact"])){
+
+        $contact_model->addContact($_POST["ajouter_titre_gestion_contact"], $_POST["ajouter_text_gestion_contact"], $_POST["ajouter_image_gestion_contact"]);
+    }
+    else if(isset($_POST["supprimer_titre_gestion_contact"])){
+
+        $contact_model->deleteContact($_POST["supprimer_titre_gestion_contact"]);
+    }
+    else if(isset($_POST["modifier_gestion_contact"])){
+
+        $contact_model->modifyContact($_POST["modifier_gestion_contact"], $_POST["modifier_titre_gestion_contact"],$_POST["modifier_text_gestion_contact"],$_POST["modifier_image_gestion_contact"]);
     }
 ?>
 
