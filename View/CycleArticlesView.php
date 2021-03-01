@@ -78,7 +78,7 @@ class CycleArticlesView
         <?php
     }
 
-    public function display4articles($cycle, $edts, $enseignants)
+    public function display4articles($cycle)
     {
 
         ?>
@@ -88,7 +88,7 @@ class CycleArticlesView
                 <div class="card-body">
                     <h5 class="card-title">Emplois du temps du cycle: <?=$cycle?></h5>
                     <p class="card-text"><small class="text-muted">Cliquez ci-dessous pour accéder à la liste des emplois du temps de cycle <?=$cycle?></small></p>
-<!--                    <a style="color: #fff;" href="routerArticle.php?edts=--><?//=$edts?><!--" class="btn btn-dark">Afficher la suite</a>-->
+                    <a style="color: #fff;" href="edt.php?cycle=<?=$cycle?>" class="btn btn-dark">Afficher les EDTs</a>
                 </div>
             </div>
 
@@ -96,14 +96,8 @@ class CycleArticlesView
                 <img src="static/img/teacher.jpg" class="card-img-top" alt="schedule">
                 <div class="card-body">
                     <h5 class="card-title">Liste des enseignats: </h5>
-                    <?php
-                    while($ens = $enseignants->fetch()){
-                        ?>
-                        <p style="margin-bottom: 0;" class="card-text"><small class="text-muted">Enseignant: <b><?=$ens["nom_enseignant"];?> <?=$ens["prenom_enseignant"];?></b></small></p>
-                        <p style="margin-top: 0;" class="card-text"><small class="text-muted">Heure de reception: <?=$ens["heure_reception_enseignant"];?></small></p>
-                        <?php
-                    }
-                    ?>
+                    <p class="card-text"><small class="text-muted">Cliquez ci-dessous pour accéder à la liste des enseignant du cycle <?=$cycle?></small></p>
+                    <a style="color: #fff;" href="enseignant.php?cycle=<?=$cycle?>" class="btn btn-dark">Afficher Ens du <?=$cycle?></a>
                 </div>
             </div>
 

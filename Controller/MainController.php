@@ -24,7 +24,11 @@ class MainController
     {
         require_once("View/CarousselView.php");
         $caroussel_view = new CarousselView();
-        $caroussel_view->display_caroussel();
+
+        require_once ("Model/DiaporamaModel.php");
+        $diaporama_model = new DiaporamaModel();
+        $diaporama_images = $diaporama_model->fetchDiaporamaImages();
+        $caroussel_view->display_caroussel($diaporama_images);
     }
 
     public function PrincipalMenuController()
@@ -232,7 +236,7 @@ class MainController
         require_once ("Model/EnseignantModel.php");
         $ens_model = new EnseignantModel();
 
-        $edts = $edtmodel->fetchEDTs("Moyen");
+        $edts = $edtmodel->fetchEDTs("Secondaire");
         $enseignants = $ens_model->fetchEnseignants();
 
         $secondary_articles = $secondary_model->fetchCycleArticles("S");
@@ -242,7 +246,7 @@ class MainController
         require_once ("View/CycleArticlesView.php");
         $cycle_articles_view = new CycleArticlesView();
         $cycle_articles_view->display_static_secondaire();
-        $cycle_articles_view->display4articles("Secondary", $edts, $enseignants);
+        $cycle_articles_view->display4articles("Secondaire", $edts, $enseignants);
 
         require_once ("View/ArticlesMainContentView.php");
         $secondary_main_content_view = new ArticlesMainContentView();
@@ -747,7 +751,44 @@ class MainController
         $edt_view->display_edt_info($id_edts);
 
         $classes = $classe_model->fetchClasses();
-        $edt_view->display_add_emploi_du_temps_form($classes);
+        $matieres = $classe_model->fetchMatieres();
+        $edt_view->display_add_emploi_du_temps_form($classes, $matieres);
+
+        $classes = $classe_model->fetchClasses();
+        $matieres = $classe_model->fetchMatieres();
+        $edt_view->display_delete_emploi_du_temps_form($classes, $matieres);
+
+        $classes = $classe_model->fetchClasses();
+        $matieres = $classe_model->fetchMatieres();
+        $edt_view->display_modify_emploi_du_temps_form($classes, $matieres);
+
+        $main_controller->FooterMenuController();
+    }
+
+    public function GestionDiaporama()
+    {
+        require_once ("Controller/MainController.php");
+        $main_controller = new self();
+
+        $main_controller->HeaderController();
+
+        require_once ("Model/DiaporamaModel.php");
+        $diaporama_model = new DiaporamaModel();
+
+        require_once("View/CarousselView.php");
+        $diaporama_view = new CarousselView();
+
+        $diaporama_images = $diaporama_model->fetchAllDiaporamaImages();
+        $diaporama_view->display_dispo_images($diaporama_images);
+
+        $diaporama_view->add_diapo_image_form();
+
+        $diaporama_images = $diaporama_model->fetchDiaporamaImages();
+        $diaporama_view->modify_diapo_image_form($diaporama_images);
+
+        $no_diaporama_images = $diaporama_model->fetchNoDiaporamaImages();
+        $diaporama_view->delete_diapo_image_form($no_diaporama_images);
+
 
         $main_controller->FooterMenuController();
     }

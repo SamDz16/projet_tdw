@@ -48,6 +48,8 @@ $admin = $admin_model->admin_login();
                     break;
 
                 case "diaporama":
+                    $main_controller->GestionDiaporama();
+                    break;
 
                 default:
                     echo "Operation non permise!";

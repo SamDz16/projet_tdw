@@ -35,6 +35,14 @@ class EnseignantModel
         return $res;
     }
 
+    public function fetchEnseignantsCycle($cycle)
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT DISTINCT enseignant.id_enseignant, enseignant.nom_enseignant,prenom_enseignant FROM enseignant INNER JOIN ligne_ens_classe ON enseignant.id_enseignant=ligne_ens_classe.id_enseignant INNER JOIN classe on ligne_ens_classe.id_classe=classe.id_classe WHERE classe.nom_cycle='$cycle'");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
+
     public function add_enseignant($nom_ens, $prenom_ens, $heure_reception)
     {
         $con = $this->connexionToDB();
@@ -108,5 +116,4 @@ class EnseignantModel
         $this->deconnexionFromDB($con);
         return $res;
     }
-
 }

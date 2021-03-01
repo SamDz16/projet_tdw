@@ -4,22 +4,22 @@
     }
 </style>
 
-<script>
-    function getClasse(){
-        const classe = $("#add_edt").val();
-        $.ajax({
-            url: "ajax.php",
-            data: {classe},
-            type: "GET",
-            success: (matieres) => {
-               $("#classe").html(matieres);
-            },
-            error: (e) => {
-                console.log(e);
-            }
-        })
-    }
-</script>
+<!--<script>-->
+<!--    function getClasse(){-->
+<!--        const classe = $("#add_edt").val();-->
+<!--        $.ajax({-->
+<!--            url: "ajax.php",-->
+<!--            data: {classe},-->
+<!--            type: "GET",-->
+<!--            success: (matieres) => {-->
+<!--               $("#classe").html(matieres);-->
+<!--            },-->
+<!--            error: (e) => {-->
+<!--                console.log(e);-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
 <?php
 
 
@@ -954,7 +954,7 @@ class GestionAdmin
                 if($edt){
                     ?>
                     <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
-                        <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">L'emploi du temps associe a la classe: <b><?=$edt["nom_classe"]?></b></h3>
+                        <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">L'emploi du temps associé à la classe: <b><?=$edt["nom_classe"]?></b></h3>
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
@@ -1050,29 +1050,211 @@ class GestionAdmin
         <?php
     }
 
-    public function display_add_emploi_du_temps_form($classes)
+    public function display_add_emploi_du_temps_form($classes, $matieres)
     {
         ?>
             <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
                 <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Emploi du Temps: </h3>
                 <div style="padding: 10px;">
                     <form method="post" action="loginMaster.php" enctype="multipart/form-data">
-                        <div class="form-group col">
-                            <label for="add_edt">Veuillez sélectionner la classe:</label>
-                            <select onchange="getClasse();" id="add_edt" name="add_edt" class="form-select" aria-label="Default select example">
-                                <?php
-                                while($classe = $classes->fetch()){
-                                    ?>
-                                    <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"]?></option>
+
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="add_classe_edt">Veuillez sélectionner la classe:</label>
+                                <select id="add_classe_edt" name="add_classe_edt" class="form-select" aria-label="Default select example">
                                     <?php
-                                }
-                                ?>
-                            </select>
+                                    while($classe = $classes->fetch()){
+                                        ?>
+                                        <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"]?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group col">
+                                <label for="add_matiere_edt">Veuillez choisir la matiere:</label>
+                                <select id="add_matiere_edt" name="add_matiere_edt" class="form-select" aria-label="Default select example">
+                                    <?php
+                                    while($matiere = $matieres->fetch()){
+                                        ?>
+                                        <option value=<?= $matiere["nom_matiere"]?>><?="Nom Matiere: ". $matiere["nom_matiere"]?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group col">
+                                <label for="add_jour_edt">Veuillez sélectionner le jour:</label>
+                                <select id="add_jour_edt" name="add_jour_edt" class="form-select" aria-label="Default select example">
+
+                                    <option value="Dimanche">Dimanche</option>
+                                    <option value="Lundi">Lundi</option>
+                                    <option value="Mardi">Mardi</option>
+                                    <option value="Mercredi">Mercredi</option>
+                                    <option value="Jeudi">Jeudi</option>
+
+                                </select>
+                            </div>
+
                         </div>
-                        <div id="classe"></div>
+                        <div class="row">
+                            <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                                <label for="add_heure_debut_edt">Heure Debut:</label>
+                                <input type="time" name="add_heure_debut_edt" class="form-control" id="add_heure_debut_edt" required>
+                            </div>
+                            <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                                <label for="add_heure_fin_edt">Heure Fin:</label>
+                                <input type="time" name="add_heure_fin_edt" class="form-control" id="add_heure_fin_edt" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter Matiere</button>
                     </form>
                 </div>
             </div>
         <?php
     }
+
+    public function display_delete_emploi_du_temps_form($classes, $matieres)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer Matiere d'un EDT: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                   <div class="row">
+                       <div class="form-group col">
+                           <label for="delete_classe_edt">Veuillez sélectionner la classe:</label>
+                           <select id="delete_classe_edt" name="delete_classe_edt" class="form-select" aria-label="Default select example">
+                               <?php
+                               while($classe = $classes->fetch()){
+                                   ?>
+                                   <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"] . " - ". "Nom Cycle: ". $classe["nom_cycle"]?></option>
+                                   <?php
+                               }
+                               ?>
+                           </select>
+                       </div>
+                       <div class="form-group col">
+                           <label for="delete_matiere_edt">Veuillez sélectionner la matiere:</label>
+                           <select id="delete_matiere_edt" name="delete_matiere_edt" class="form-select" aria-label="Default select example">
+                               <?php
+                               while($matiere = $matieres->fetch()){
+                                   ?>
+                                   <option value=<?= $matiere["nom_matiere"]?>><?="Nom Matiere: ". $matiere["nom_matiere"]?></option>
+                                   <?php
+                               }
+                               ?>
+                           </select>
+                       </div>
+                       <div class="form-group col">
+                           <label for="delete_jour_edt">Veuillez sélectionner le jour:</label>
+                           <select id="delete_jour_edt" name="delete_jour_edt" class="form-select" aria-label="Default select example">
+                               <option value="Dimanche">Dimanche</option>
+                               <option value="Lundi">Lundi</option>
+                               <option value="Mardi">Mardi</option>
+                               <option value="Mercredi">Mercredi</option>
+                               <option value="Jeudi">Jeudi</option>
+                           </select>
+                       </div>
+                   </div>
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="delete_heure_debut_edt">HeureDebut:</label>
+                            <input type="time" name="delete_heure_debut_edt" class="form-control" id="delete_heure_debut_edt" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="delete_heure_debut_edt">Heure Fin:</label>
+                            <input type="time" name="delete_heure_fin_edt" class="form-control" id="delete_heure_debut_edt" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Supprimer Matiere</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function display_modify_emploi_du_temps_form($classes, $matieres)
+    {
+        ?>
+        <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Matiere d'un EDT: </h3>
+            <div style="padding: 10px;">
+                <form method="post" action="loginMaster.php" enctype="multipart/form-data">
+
+                   <div class="row">
+                       <div class="form-group col">
+                           <label for="modify_classe_edt">Veuillez sélectionner la classe:</label>
+                           <select id="modify_classe_edt" name="modify_classe_edt" class="form-select" aria-label="Default select example">
+                               <?php
+                               while($classe = $classes->fetch()){
+                                   ?>
+                                   <option value=<?= (int) $classe["id_classe"]?>><?="Nom Classe: ". $classe["nom_classe"] . " - ". "Nom Cycle: ". $classe["nom_cycle"]?></option>
+                                   <?php
+                               }
+                               ?>
+                           </select>
+                       </div>
+                       <div class="form-group col">
+                           <label for="modify_matiere_edt">Veuillez sélectionner la matiere:</label>
+                           <select id="modify_matiere_edt" name="modify_matiere_edt" class="form-select" aria-label="Default select example">
+                               <?php
+                               while($matiere = $matieres->fetch()){
+                                   ?>
+                                   <option value=<?= $matiere["nom_matiere"]?>><?="Nom Matiere: ". $matiere["nom_matiere"]?></option>
+                                   <?php
+                               }
+                               ?>
+                           </select>
+                       </div>
+                       <div class="form-group col">
+                           <label for="modify_jour_edt">Veuillez sélectionner le jour:</label>
+                           <select id="modify_jour_edt" name="modify_jour_edt" class="form-select" aria-label="Default select example">
+                               <option value="Dimanche">Dimanche</option>
+                               <option value="Lundi">Lundi</option>
+                               <option value="Mardi">Mardi</option>
+                               <option value="Mercredi">Mercredi</option>
+                               <option value="Jeudi">Jeudi</option>
+                           </select>
+                       </div>
+                   </div>
+                    <div class="row">
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_heure_debut_edt">HeureDebut:</label>
+                            <input type="time" name="modify_heure_debut_edt" class="form-control" id="modify_heure_debut_edt" required>
+                        </div>
+                        <div style="margin: 20px 0;" class="form-group green-border-focus col">
+                            <label for="modify_heure_fin_edt">Heure Fin:</label>
+                            <input type="time" name="modify_heure_fin_edt" class="form-control" id="modify_heure_fin_edt" required>
+                        </div>
+                    </div>
+                    <p><b>Vueillez introduire les nouveau donnees:</b></p>
+                    <?php
+                    require_once ("Model/ClasseModel.php");
+                    $classe_model = new ClasseModel();
+                    $matieres = $classe_model->fetchMatieres();
+                    ?>
+                    <div class="form-group">
+                        <label for="modified_matiere_edt">Veuillez sélectionner la nouvelle matiere:</label>
+                        <select id="modified_matiere_edt" name="modified_matiere_edt" class="form-select" aria-label="Default select example">
+                            <?php
+                            while($matiere = $matieres->fetch()){
+                                ?>
+                                <option value=<?= $matiere["nom_matiere"]?>><?="Nom Matiere: ". $matiere["nom_matiere"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Modifier Matiere</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
 }

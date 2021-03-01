@@ -29,6 +29,9 @@
 
     require_once ("Model/EDTModel.php");
     $edt_model = new EDTModel();
+
+    require_once ("Model/DiaporamaModel.php");
+    $diaporama_model = new DiaporamaModel();
 ?>
 
 <?php
@@ -151,9 +154,27 @@
 
         $contact_model->modifyContact($_POST["modifier_gestion_contact"], $_POST["modifier_titre_gestion_contact"],$_POST["modifier_text_gestion_contact"],$_POST["modifier_image_gestion_contact"]);
     }
-    else if(isset($_POST["add_edt"])){
+    else if(isset($_POST["add_classe_edt"])){
 
-//        $edt_model->addMatiere($_POST["modifier_gestion_contact"], $_POST["modifier_titre_gestion_contact"],$_POST["modifier_text_gestion_contact"],$_POST["modifier_image_gestion_contact"]);
+        $edt_model->addMatiereEDT($_POST["add_classe_edt"], $_POST["add_matiere_edt"],$_POST["add_jour_edt"],$_POST["add_heure_debut_edt"],$_POST["add_heure_fin_edt"]);
+    }
+    else if(isset($_POST["delete_classe_edt"])){
+        $edt_model->deleteMatiereEDT($_POST["delete_classe_edt"],$_POST["delete_matiere_edt"],$_POST["delete_jour_edt"], $_POST["delete_heure_debut_edt"], $_POST["delete_heure_fin_edt"]);
+    }
+    else if(isset($_POST["modify_classe_edt"])){
+        $edt_model->modifyMatiereEDT($_POST["modify_classe_edt"],$_POST["modify_matiere_edt"],$_POST["modify_jour_edt"], $_POST["modify_heure_debut_edt"], $_POST["modify_heure_fin_edt"],$_POST["modified_matiere_edt"]);
+    }
+    else if(isset($_POST["add_image_diapo"])){
+
+        $diaporama_model->addImageDiapo($_POST["add_image_diapo"]);
+    }
+    else if(isset($_POST["modify_image_diapo"])){
+
+        $diaporama_model->modifyImageDiapo($_POST["modify_image_diapo"], $_POST["modified_image_diapo"]);
+    }
+    else if(isset($_POST["delete_image_diapo"])){
+
+        $diaporama_model->deleteImageDiapo($_POST["delete_image_diapo"]);
     }
 ?>
 

@@ -86,6 +86,38 @@ class EnseignantView
         <?php
     }
 
+    public function display_ens_cycle_details($ens_details, $ens_matieres)
+    {
+        ?>
+        <div>
+            <h3 style="margin-bottom: 20px;">Informations sur <?=$ens_details["nom_enseignant"]?> <?=$ens_details["prenom_enseignant"]?></h3>
+            <div style="margin-bottom: 20px;" id="ens-details" class="media">
+                <img style="width: 250px; margin-right: 20px;" src="static/ens/<?=$ens_details["photo_enseignant"]?>" class="mr-3" alt="<?=$ens_details["nom_enseignant"]?>">
+                <div class="media-body">
+                    <h5 class="mt-0"><b><?=$ens_details["nom_enseignant"]. " ". $ens_details["prenom_enseignant"]?></b></h5>
+                    <p>Vous êtes ensignant chez DZ School</p>
+                    <p><small class="text-muted">e-Mail: <?=$ens_details["mail_enseignant"]?></small></p>
+                    <p><small class="text-muted">Tel.: <?=$ens_details["tel_enseignant"]?></small></p>
+                    <p><small class="text-muted">Heure Réception: <?=$ens_details["heure_reception_enseignant"]?></small></p>
+                </div>
+                <div class="media-body" style="margin-left: 20px;">
+                    <h5 class="mt-0">Matières enseignées par : <b><?=$ens_details["nom_enseignant"]. " ". $ens_details["prenom_enseignant"]?></b></h5>
+                    <ul class="list-group">
+                        <?php
+                        while($ens_matiere = $ens_matieres->fetch()){
+                            ?>
+                            <li class="list-group-item"><?=$ens_matiere["nom_matiere"]?></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <?php
+    }
+
     public function display_ens_details($ens_details, $ens_matieres)
     {
         ?>

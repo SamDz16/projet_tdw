@@ -42,4 +42,12 @@ class ClasseModel
         $this->deconnexionFromDB($con);
         return $res;
     }
+
+    public function fetchMatieres()
+    {
+        $con = $this->connexionToDB();
+        $res = $con->query("SELECT * FROM matiere");
+        $this->deconnexionFromDB($con);
+        return $res;
+    }
 }
