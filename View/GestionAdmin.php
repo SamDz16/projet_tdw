@@ -110,8 +110,8 @@ class GestionAdmin
             <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer un article</h3>
             <form method="post" action="loginMaster.php">
                 <div class="form-group">
-                    <label for="imageSelect">Veuillez sélectionner l'article à supprimer:</label>
-                    <select id="imageSelect" name="delete_article" class="form-select" aria-label="Default select example">
+                    <label for="delete_article">Veuillez sélectionner l'article à supprimer:</label>
+                    <select id="delete_article" name="delete_article" class="form-select" aria-label="Default select example">
                         <?php
                         while($article = $articles->fetch()){
                             ?>
@@ -135,8 +135,8 @@ class GestionAdmin
             <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier un article</h3>
             <form method="post" action="loginMaster.php">
                 <div class="form-group">
-                    <label for="imageSelect">Veuillez sélectionner l'article à modifier:</label>
-                    <select id="imageSelect" name="modify_article" class="form-select" aria-label="Default select example">
+                    <label for="modify_article">Veuillez sélectionner l'article à modifier:</label>
+                    <select id="modify_article" name="modify_article" class="form-select" aria-label="Default select example">
                         <?php
                         while($article = $articles->fetch()){
                             ?>
@@ -149,12 +149,12 @@ class GestionAdmin
 
                 <div class="row">
                     <div class="col">
-                        <label for="titre_presentation">Titre Article:</label>
-                        <input name="titre_article_modify" type="email" class="form-control" id="titre_presentation">
+                        <label for="titre_article_modify">Titre Article:</label>
+                        <input name="titre_article_modify" type="email" class="form-control" id="titre_article_modify">
                     </div>
                     <div class="col">
-                        <label for="imageSelect">Veuillez choisir une image a uploader:</label>
-                        <select id="imageSelect" name="image_article_modify" class="form-select" aria-label="Default select example">
+                        <label for="image_article_modify">Veuillez choisir une image a uploader:</label>
+                        <select id="image_article_modify" name="image_article_modify" class="form-select" aria-label="Default select example">
                             <option value="img_1.jpg" selected>Image 1</option>
                             <option value="img_2.jpg">Image 2</option>
                             <option value="img_3.jpg">Image 3</option>
@@ -164,50 +164,50 @@ class GestionAdmin
                 </div>
 
                 <div class="form-group">
-                    <label for="text_presentation">Description Article:</label>
-                    <textarea name="description_article_modify" type="password" class="form-control" id="text_presentation" rows="6" cols="50"></textarea>
+                    <label for="description_article_modify">Description Article:</label>
+                    <textarea name="description_article_modify" type="password" class="form-control" id="description_article_modify" rows="6" cols="50"></textarea>
                 </div>
 
                 <div class="row">
                     <div class="col">
-                        <input name="checklist_users[]" value="En" class="form-check-input" type="checkbox" id="gridCheck1">
-                        <label class="form-check-label" for="gridCheck1">
+                        <input name="checklist_users[]" value="En" class="form-check-input" type="checkbox" id="gridCheck11">
+                        <label class="form-check-label" for="gridCheck11">
                             Enseignant
                         </label>
                     </div>
                     <div class="col">
-                        <input name="checklist_users[]" value="Pa" class="form-check-input" type="checkbox" id="gridCheck2">
-                        <label class="form-check-label" for="gridCheck2">
+                        <input name="checklist_users[]" value="Pa" class="form-check-input" type="checkbox" id="gridCheck12">
+                        <label class="form-check-label" for="gridCheck12">
                             Parent
                         </label>
                     </div>
                     <div class="col">
-                        <input name="checklist_users[]" value="E" class="form-check-input" type="checkbox" id="gridCheck3">
-                        <label class="form-check-label" for="gridCheck3">
+                        <input name="checklist_users[]" value="E" class="form-check-input" type="checkbox" id="gridCheck13">
+                        <label class="form-check-label" for="gridCheck13">
                             Élève
                         </label>
                     </div>
                     <div class="col">
-                        <input name="checklist_users[]" value="P" class="form-check-input" type="checkbox" id="gridCheck4">
-                        <label class="form-check-label" for="gridCheck4">
+                        <input name="checklist_users[]" value="P" class="form-check-input" type="checkbox" id="gridCheck14">
+                        <label class="form-check-label" for="gridCheck14">
                             Primaire
                         </label>
                     </div>
                     <div class="col">
-                        <input name="checklist_users[]" value="M" class="form-check-input" type="checkbox" id="gridCheck5">
-                        <label class="form-check-label" for="gridCheck5">
+                        <input name="checklist_users[]" value="M" class="form-check-input" type="checkbox" id="gridCheck15">
+                        <label class="form-check-label" for="gridCheck15">
                             Moyen
                         </label>
                     </div>
                     <div class="col">
-                        <input name="checklist_users[]" value="S" class="form-check-input" type="checkbox" id="gridCheck6">
-                        <label class="form-check-label" for="gridCheck6">
+                        <input name="checklist_users[]" value="S" class="form-check-input" type="checkbox" id="gridCheck16">
+                        <label class="form-check-label" for="gridCheck16">
                             Secondaire
                         </label>
                     </div>
                     <div class="col">
-                        <input name="checklist_users[]" value="S" class="form-check-input" type="checkbox" id="gridCheck7">
-                        <label class="form-check-label" for="gridCheck7">
+                        <input name="checklist_users[]" value="S" class="form-check-input" type="checkbox" id="gridCheck17">
+                        <label class="form-check-label" for="gridCheck17">
                             Tous
                         </label>
                     </div>
@@ -300,16 +300,16 @@ class GestionAdmin
                             </select>
                         </div>
                         <div style="margin: 20px 0;" class="form-group green-border-focus">
-                            <label for="exampleFormControlTextarea">Titre de présentation de l'école:</label>
-                            <input name="modify_titre_presentation" class="form-control" id="exampleFormControlTextarea" required>
+                            <label for="modify_titre_presentation">Titre de présentation de l'école:</label>
+                            <input name="modify_titre_presentation" class="form-control" id="modify_titre_presentation" required>
                         </div>
                         <div class="form-group green-border-focus">
-                            <label for="exampleFormControlTextarea5">Text de présentation de l'école:</label>
-                            <textarea name="modify_text_presentation" class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>
+                            <label for="modify_text_presentation">Text de présentation de l'école:</label>
+                            <textarea name="modify_text_presentation" class="form-control" id="modify_text_presentation" rows="3"></textarea>
                         </div>
                         <div style="margin: 20px 0;" class="form-group green-border-focus">
-                            <label for="imageSelect">Veuillez choisir une image a uploader:</label>
-                            <select id="imageSelect" name="modify_image_presentation" class="form-select" aria-label="Default select example">
+                            <label for="modify_image_presentation">Veuillez choisir une image a uploader:</label>
+                            <select id="modify_image_presentation" name="modify_image_presentation" class="form-select" aria-label="Default select example">
                                 <option value="img_1.jpg">Image 1</option>
                                 <option value="img_2.jpg">Image 2</option>
                                 <option value="img_3.jpg">Image 3</option>
@@ -1054,7 +1054,7 @@ class GestionAdmin
     {
         ?>
             <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
-                <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Emploi du Temps: </h3>
+                <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Ajouter Matière à Emploi du Temps: </h3>
                 <div style="padding: 10px;">
                     <form method="post" action="loginMaster.php" enctype="multipart/form-data">
 
@@ -1120,7 +1120,7 @@ class GestionAdmin
     {
         ?>
         <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
-            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer Matiere d'un EDT: </h3>
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Supprimer Matiere d'un Emploi du Temps: </h3>
             <div style="padding: 10px;">
                 <form method="post" action="loginMaster.php" enctype="multipart/form-data">
 
@@ -1182,7 +1182,7 @@ class GestionAdmin
     {
         ?>
         <div style="border: 1px solid #000; border-radius: 5px; padding: 20px; margin: 20px 0;">
-            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Matiere d'un EDT: </h3>
+            <h3 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">Modifier Matiere d'un Emploi du Temps: </h3>
             <div style="padding: 10px;">
                 <form method="post" action="loginMaster.php" enctype="multipart/form-data">
 

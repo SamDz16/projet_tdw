@@ -79,31 +79,31 @@ class MainController
         $main_controller->FooterMenuController();
     }
 
-    public static function upload_presentation()
-    {
-        require_once ("Model/PresentationModel.php");
-        $upload_presentation = new PresentationModel();
-
-        if(isset($_SESSION["admin_username"])){
-            // Must be authenticated!
-            if (isset($_POST["titre_presentation_ecole"])){
-
-                $titre_presentation_text = $_POST["titre_presentation_ecole"];
-                if(isset($_POST["text_presentation_ecole"])){
-                    $text_presentation_text = $_POST["text_presentation_ecole"];
-                }
-                if(isset($_POST["image"])){
-                    $presentation_image = $_POST["image"];
-                }
-
-                $upload_presentation->upload_presentation($titre_presentation_text, $text_presentation_text, $presentation_image);
-            } else {
-                echo "Nothing is submitted!";
-            }
-        } else {
-            echo "Admin not authenticated!";
-        }
-    }
+//    public static function upload_presentation()
+//    {
+//        require_once ("Model/PresentationModel.php");
+//        $upload_presentation = new PresentationModel();
+//
+//        if(isset($_SESSION["admin_username"])){
+//            // Must be authenticated!
+//            if (isset($_POST["titre_presentation_ecole"])){
+//
+//                $titre_presentation_text = $_POST["titre_presentation_ecole"];
+//                if(isset($_POST["text_presentation_ecole"])){
+//                    $text_presentation_text = $_POST["text_presentation_ecole"];
+//                }
+//                if(isset($_POST["image"])){
+//                    $presentation_image = $_POST["image"];
+//                }
+//
+//                $upload_presentation->upload_presentation($titre_presentation_text, $text_presentation_text, $presentation_image);
+//            } else {
+//                echo "Nothing is submitted!";
+//            }
+//        } else {
+//            echo "Admin not authenticated!";
+//        }
+//    }
 
     public static function PagePresentationController()
     {
